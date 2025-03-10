@@ -1,30 +1,113 @@
 import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import NoItems from "./components/options/NoItems";
+import Options from "./components/options/Options";
+import PratoType from "./types/PratoType";
 
 function App() {
+  const ItemsCardapio: PratoType[] = [
+    {
+      Nome: "Prato1",
+      Descrição: "Descriçõa Prato",
+      Valor: 12.0,
+      DescriçãoDetalhada: "Descrição detalhada do produto",
+      Ingredientes: ["Pão", "Queijo", "Salame"],
+      ID: 0,
+      Conjunto: "Teste",
+    },
+    {
+      Nome: "Prato2",
+      Descrição: "Descriçõa Prato",
+      Valor: 12.0,
+      DescriçãoDetalhada: "Descrição detalhada do produto",
+      Ingredientes: ["Pão", "Queijo", "Salame"],
+      ID: 1,
+      Conjunto: "Teste",
+    },
+    {
+      Nome: "Prato3",
+      Descrição: "Descriçõa Prato",
+      Valor: 12.0,
+      DescriçãoDetalhada: "Descrição detalhada do produto",
+      Ingredientes: ["Pão", "Queijo", "Salame"],
+      ID: 2,
+      Conjunto: "Teste",
+    },
+    {
+      Nome: "Prato4",
+      Descrição: "Descriçõa Prato",
+      Valor: 12.0,
+      DescriçãoDetalhada: "Descrição detalhada do produto",
+      Ingredientes: ["Pão", "Queijo", "Salame"],
+      ID: 3,
+      Conjunto: "Teste",
+    },
+    {
+      Nome: "Prato5",
+      Descrição: "Descriçõa Prato",
+      Valor: 12.0,
+      DescriçãoDetalhada: "Descrição detalhada do produto",
+      Ingredientes: ["Pão", "Queijo", "Salame"],
+      ID: 4,
+      Conjunto: "Teste",
+    },
+    {
+      Nome: "Prato6",
+      Descrição: "Descriçõa Prato",
+      Valor: 12.0,
+      DescriçãoDetalhada: "Descrição detalhada do produto",
+      Ingredientes: ["Pão", "Queijo", "Salame"],
+      ID: 5,
+      Conjunto: "Teste",
+    },
+    {
+      Nome: "Prato7",
+      Descrição: "Descriçõa Prato",
+      Valor: 12.0,
+      DescriçãoDetalhada: "Descrição detalhada do produto",
+      Ingredientes: ["Pão", "Queijo", "Salame"],
+      ID: 6,
+      Conjunto: "Teste",
+    },
+    {
+      Nome: "Prato8",
+      Descrição: "Descriçõa Prato",
+      Valor: 12.0,
+      DescriçãoDetalhada: "Descrição detalhada do produto",
+      Ingredientes: ["Pão", "Queijo", "Salame"],
+      ID: 7,
+      Conjunto: "Teste",
+    },
+    {
+      Nome: "Prato9",
+      Descrição: "Descriçõa Prato",
+      Valor: 12.0,
+      DescriçãoDetalhada: "Descrição detalhada do produto",
+      Ingredientes: ["Pão", "Queijo", "Salame"],
+      ID: 8,
+      Conjunto: "Teste",
+    },
+  ];
+  const Conjuntos: string[] = ["Teste"];
+
   return (
     <>
       <Header />
       <main className="MainCardapioPage">
         <h1>Cardapio Web</h1>
         <div className="DivPagePedido">
-
-          <section className="ConjuntoTipoPratos">
-            <h1>Conjunto de tipos de pratos</h1>  
-            <ul className="ListaDPratos">
-              <li className="CaixaPrato">
-                <h2>Nome do prato</h2>
-                <p>Descrição do prato</p>
-                <strong>Valor do prato</strong>
-                <button>Adicionar ao carinho</button>
-              </li>
-            </ul>
-          </section>
-
-          <button className="ButaoConclusaoP">Conclusão de pedido</button>
-
+          {Conjuntos.map((Conjunto) => {
+            if (Conjuntos === null) {
+              return <NoItems />;
+            } else {
+              return (
+                <Options Conjunto={Conjunto} ItemsCardapio={ItemsCardapio} />
+              );
+            }
+          })}
         </div>
+        <button className="ButaoConclusaoP">Conclusão de pedido</button>
       </main>
       <Footer />
     </>
