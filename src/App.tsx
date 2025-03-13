@@ -1,6 +1,5 @@
 import "./App.css";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
+import Main from "./components/Main";
 import NoItems from "./components/options/NoItems";
 import Options from "./components/options/Options";
 import PratoType from "./types/PratoType";
@@ -92,25 +91,23 @@ function App() {
   const Conjuntos: string[] = ["Teste"];
 
   return (
-    <>
-      <Header />
-      <main className="MainCardapioPage">
-        <h1>Cardapio Web</h1>
-        <div className="DivPagePedido">
-          {Conjuntos.map((Conjunto) => {
-            if (Conjuntos === null) {
-              return <NoItems />;
-            } else {
-              return (
-                <Options Conjunto={Conjunto} ItemsCardapio={ItemsCardapio} />
-              );
-            }
-          })}
+      <Main>
+        <div className="MainCardapioPage">
+          <h1>Cardapio Web</h1>
+          <div className="DivPagePedido">
+            {Conjuntos.map((Conjunto) => {
+              if (Conjuntos === null) {
+                return <NoItems />;
+              } else {
+                return (
+                  <Options Conjunto={Conjunto} ItemsCardapio={ItemsCardapio} />
+                );
+              }
+            })}
+          </div>
+          <button className="ButaoConclusaoP">Conclusão de pedido</button>
         </div>
-        <button className="ButaoConclusaoP">Conclusão de pedido</button>
-      </main>
-      <Footer />
-    </>
+      </Main>
   );
 }
 
