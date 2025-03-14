@@ -19,7 +19,7 @@ const router = createBrowserRouter([
     path: "pedido",
     children:[
       {
-        path: "confirmação",
+        path: "confirmacao",
         element: <Confirmação />
       },
       {
