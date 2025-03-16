@@ -28,6 +28,13 @@ body{
     justify-content: space-between;
 }
 
+.MainPage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .HeaderClass{
     background-color: var(--Second-Color);
     color: var(--Stand-Color);

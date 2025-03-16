@@ -167,3 +167,22 @@
 .SemPedDiv > button:hover{
     cursor: pointer;
 }
+
+
+/*Conclusao pedido*/
+
+.disableBox{
+    display: none;
+    visibility: hidden;
+}
+.DivCasaForms{
+
+}
+
+.DivAptForms{
+
+}
+
+.EntregaBoxDiv{
+    
+}

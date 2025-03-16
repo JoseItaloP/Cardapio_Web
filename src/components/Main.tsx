@@ -6,7 +6,7 @@ export default function Main({children}: {children: ReactNode}) {
   return (
     <>
       <Header />
-      <main>
+      <main className='MainPage'>
         {children}
       </main>
       <Footer />
