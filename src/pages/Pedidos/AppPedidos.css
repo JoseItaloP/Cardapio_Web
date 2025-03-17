@@ -175,14 +175,116 @@
     display: none;
     visibility: hidden;
 }
-.DivCasaForms{
 
+.FormConclu{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin: 1em;
+
+    background-color: var(--Third-Color);
+    border-radius: 1em;
 }
 
-.DivAptForms{
+fieldset{
+    border: 0;
+    margin: 0.8em 0 0.8em 0;
 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.EntregaBoxDiv{
+select{
+    border: 0;
+    border-radius: 0.5em;
+
+    background-color: var(--Second-Color);
+    color: var(--Stand-Color);
+    font-size: large;
+    padding: 0.3em;
+}
+
+.FormConclu > h1, h2{
+    text-align: center;
+    margin: 0.5em 0 0.5em 0;
+}
+
+.SelectEnd{
+    display: flex;
+    justify-content: space-around;
+
+    margin: 0.2em;
+    width: 100%;
+}
+
+.DivCasaForms, .DivAptForms{
+    display: flex;
+    flex-direction: column;
+
+    background-color: var(--Second-Color);
+    color: var(--Stand-Color);
+    padding: 1em;
+    border-radius: 0.5em;
+}
+
+
+
+.DivCasaForms > input, .DivAptForms > input{
+    padding: 0.3em;
+    font-size: 1.250em;
+    border: 0;
+    border-radius: 0.3em;
     
+    margin-bottom: 0.4em;
+}
+
+
+.EntregaDinheiroDiv{
+    width: 70%;
+}
+
+.EntregaDinheiroDiv > h2{
+    font-size: 1.6em;
+}
+
+.EntregaDinheiroDiv > input{
+
+    padding: 0.3em;
+    font-size: 1.250em;
+    border: 1px solid var(--Second-Color);
+    border-radius: 0.3em;
+    
+}
+
+.btnConclu{
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+
+    border: 1px solid var(--Stand-Color);
+    border-radius: 0.4em;
+
+    background-color: var(--Second-Color);
+    color: var(--Stand-Color);
+
+    font-size: large;
+}
+
+.btnConclu:hover{
+    cursor: pointer;
+    background-color:  var(--Stand-Color) ;
+    color: var(--Second-Color);
+    border: 1px solid var(--Second-Color);
+}
+
+.UlConc{
+    width: 100%;
+}
+
+.NoPedidosCoclu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
