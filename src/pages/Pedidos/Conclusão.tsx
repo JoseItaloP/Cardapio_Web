@@ -1,18 +1,25 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Main from "../../components/Main";
 import "./AppPedidos.css";
 import ListaItens from "../../components/Pedido/ListaItens";
-import carrinho from "../../components/Pedido/Carrinho";
 import ItemPedido from "../../types/ItemPedidoType";
 import SemPedidos from "../../components/Pedido/SemPedidos";
+import { CartContext } from "../../context/CartContext";
 
 export default function Conclusão() {
+  const {carrinho} = useContext(CartContext)
+
   const [Entrega, setEntrega] = useState<string>("");
   const [Metodo, setMetodo] = useState<boolean>(false);
   const [valor, setValor] = useState<number>(0);
   const [Pagamento, setPagamento] = useState<string>("dinheiro");
 
   const [ItensCarrinho, setItensCarrinho] = useState<ItemPedido[]>(carrinho);
+
+
+  useEffect(()=>{
+    console.log(carrinho)
+  }, [])
 
   function ChangeQuantity(metodo: string, IdItem: number) {
     setItensCarrinho((prevItens) =>

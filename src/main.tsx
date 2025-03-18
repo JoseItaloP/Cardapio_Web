@@ -9,6 +9,7 @@ import Pagamento from './pages/Pedidos/Pagamento.tsx'
 import EstadoPedido from './pages/Pedidos/EstadoPedido.tsx'
 import Login from './pages/Funcionarios/Login.tsx'
 import MainFunc from './pages/Funcionarios/MainFunc.tsx'
+import CartProvider from './context/CartContext.tsx'
 
 const router = createBrowserRouter([
   {
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
       },
       {
         path: "conclusao",
-        element: <Conclusão/>
+        element: <CartProvider><Conclusão/></CartProvider>
       },
       {
         path: "pagamento",

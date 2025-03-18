@@ -200,7 +200,91 @@ body{
     display: inline-block;
 }
 
-.CardDiv{
+.CartContainer:hover{
+    cursor: pointer;
+}
+
+ /*---*/
+.CardDiv {
+    display: none;
+    cursor: default;
+    padding: 10px;
+    list-style: none;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Estilo para Desktop (janela pequena ao passar o mouse) */
+  .CardDiv.desktop {
+    
+    top: 70%;
+    left: 0;
+    min-width: 100px;
+    display: block;
+    position: absolute;
+    padding: 1em;
+  }
+
+  .InsideDivList.desktop{
+    border: 1px solid black;
+    background-color: white;
+
+    width: 100%;
+    border-radius: 1em;
+    display: block;
+  }
+  
+  /* Estilo para Mobile (ocupa a tela toda) */
+  .CardDiv.mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgb(0 0 0 / 22%);
+    padding: 0;
+    border: 0;
+    display: flex;
+        flex-direction: row-reverse;
+        z-index: 200;
+  }
+  
+  /* Ícone de fechar no Mobile */
+  .CloseIcon {
+    top: 20px;
+    right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: black
+  }
+
+  .CloseIcon.desktop{
+    display: none;
+  }
+ /*---*/
+
+.InsideDivList{
+    background: white;
+    width: 50%;
+    height: 100%;
+    padding: 1em;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+
+.CartList{
+    list-style: none;
+}
+
+
+.disableBox{
+    display: none;
+    visibility: hidden;
+}
+
+/*Card fora do cell*/
+/* .CardDiv{
     display: none;
     position: absolute;
     padding: 1em;
@@ -222,9 +306,7 @@ body{
     min-width: 150px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 
-}
+} */
 
-.CartContainer:hover .CardDiv{
-    display: block;
-}
+
 

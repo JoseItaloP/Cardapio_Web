@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ListaItens from "../../components/Pedido/ListaItens";
 import Main from "../../components/Main";
 import ItemPedido from "../../types/ItemPedidoType";
 import "./AppPedidos.css";
 import SemPedidos from "../../components/Pedido/SemPedidos";
-import carrinho from "../../components/Pedido/Carrinho";
+import { CartContext } from "../../context/CartContext";
 
 export default function Confirmacao() {
+  const {carrinho} = useContext(CartContext)
+
   const [ItensCarrinho, setItensCarrinho] = useState<ItemPedido[]>(carrinho);
 
   function ChangeQuantity(metodo: string, IdItem: number) {
