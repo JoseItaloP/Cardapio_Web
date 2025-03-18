@@ -33,19 +33,12 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    position: relative;
+    z-index: 50;
 }
 
-.HeaderClass{
-    background-color: var(--Second-Color);
-    color: var(--Stand-Color);
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 1em;
-    
-}
 
 .FooterClass{
     background-color: var(--Second-Color);
@@ -161,5 +154,77 @@ body{
 
 .ButaoConclusaoP{
 
+}
+
+/*Header*/
+.HeaderClass{
+    background-color: var(--Second-Color);
+    color: var(--Stand-Color);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    position: relative;
+
+    padding: 1em;
+    
+}
+.CartOBJ{
+    display: flex;
+}
+.NumberOfItens{
+    margin-top: 11px;
+    margin-left: 14px;
+
+    padding: 0px 5px;
+
+    background-color: var(--Stand-Color);
+    color: var(--Second-Color);
+
+    border-radius: 50%;
+    position: absolute;
+}
+
+.ItenNameCart{
+    z-index: 100;
+    color: var(--Second-Color);
+}
+
+.cartIcon{
+    font-size: 1.3em;
+}
+
+.CartContainer{
+    position: relative;
+    display: inline-block;
+}
+
+.CardDiv{
+    display: none;
+    position: absolute;
+    padding: 1em;
+    list-style: none;
+    
+    top: 60%;
+    min-width: 150px;
+
+    z-index: 200;
+}
+
+.CartList{
+
+    background: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    list-style: none;
+    
+    min-width: 150px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+}
+
+.CartContainer:hover .CardDiv{
+    display: block;
 }
 
