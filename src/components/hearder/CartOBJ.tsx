@@ -20,17 +20,23 @@ export default function CartOBJ() {
 
   return (
     <div className="CartOBJ">
-      <div 
-        className="CartContainer" 
+      <div
+        className="CartContainer"
         onMouseEnter={() => !isMobile && setIsOpen(true)}
         onMouseLeave={() => !isMobile && setIsOpen(false)}
       >
-        <FaShoppingCart className="cartIcon" onClick={() => isMobile && setIsOpen(true)} />
-        
+        <FaShoppingCart
+          className="cartIcon"
+          onClick={() => isMobile && setIsOpen(true)}
+        />
+
         {isOpen && (
           <div className={`CardDiv ${isMobile ? "mobile" : "desktop"}`}>
-            <div className= {`InsideDivList ${isMobile ? "mobile" : "desktop"}`} >
-              <IoCloseSharp className={`CloseIcon ${isMobile ? "mobile" : "desktop"}`} onClick={() => setIsOpen(false)} />
+            <div className={`InsideDivList ${isMobile ? "mobile" : "desktop"}`}>
+              <IoCloseSharp
+                className={`CloseIcon ${isMobile ? "mobile" : "desktop"}`}
+                onClick={() => setIsOpen(false)}
+              />
               <ul className="CartList">
                 {carrinho.map((item) => (
                   <li key={item.ID} className="ItenNameCart">
@@ -46,4 +52,3 @@ export default function CartOBJ() {
     </div>
   );
 }
-

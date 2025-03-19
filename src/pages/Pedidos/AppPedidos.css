@@ -288,3 +288,47 @@ select{
     flex-direction: column;
     align-items: center;
 }
+
+/*Estado Pedido*/
+
+.DivEstadoPedido{
+    height: 80vh;
+    width: 70%;
+    background-color: var(--Second-Color);
+
+    border-radius: 0.5em;
+    
+    padding: 1em;
+}
+
+.H1EstadoPedido{
+    color: var(--Stand-Color);
+}
+
+.ListaEstadoPedido{
+    display: flex;
+    flex-direction: column;
+
+    list-style: none;
+
+    margin-top: 2em;
+    height: 100%;
+    width: 100%;
+}
+
+.ListaEstadoPedido > li{
+    font-size: 2.2em;
+    margin-bottom: 1.7em;
+}
+
+.Ativo{
+    color: green;
+}
+
+.DisablEstado{
+    color: grey;
+}
+
+.PassAwayEstado{
+    color: var(--Stand-Color);
+}

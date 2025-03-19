@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     children:[
       {
         path: "confirmacao",
-        element: <Confirmação />
+        element: <CartProvider><Confirmação /></CartProvider>
       },
       {
         path: "endereco",
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
       },
       {
         path: "estadoPedido",
-        element: <EstadoPedido/>
+        element: <CartProvider><EstadoPedido/></CartProvider>
       }
     ]
   },

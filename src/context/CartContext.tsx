@@ -1,13 +1,17 @@
-import { createContext } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import ItemPedido from '../types/ItemPedidoType'
+import PedidoType from '../types/PedidoType';
 
 type ContextType = {
     carrinho: ItemPedido[];
+    Pedidos: PedidoType;
 }
 
 export const CartContext = createContext({} as ContextType)
 
 export default function CartProvider({children}: {children: React.ReactNode})  {
+
+  const [TempoPedido, setTempoPedido] = useState(0)
     const carrinho = [
         {
           ID: 0,
@@ -35,8 +39,30 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
         },
       ]
 
+      const EstadoPedido = [
+        "Recebido",
+        "Pedido",
+        "Pronto",
+        "Saiu"
+      ]
+      
+      const ValorTotal = carrinho.reduce((acc, item)=> acc + item.Valor,0)
+
+      const Pedidos: PedidoType = {
+        ID: '0001',
+        EstadoPedido,
+        PosiçãoEstadoPedido: 3,
+        ValorTotal,
+        ListaItens: carrinho,
+        TempoPedido
+      }
+
+      useEffect(()=>{
+        setTempoPedido(carrinho.length * 10)
+      },[carrinho])
+
   return (
-    <CartContext.Provider value={{carrinho}}>
+    <CartContext.Provider value={{carrinho, Pedidos}}>
       {children}
     </CartContext.Provider>
   )

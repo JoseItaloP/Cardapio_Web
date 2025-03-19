@@ -17,9 +17,6 @@ export default function Conclusão() {
   const [ItensCarrinho, setItensCarrinho] = useState<ItemPedido[]>(carrinho);
 
 
-  useEffect(()=>{
-    console.log(carrinho)
-  }, [])
 
   function ChangeQuantity(metodo: string, IdItem: number) {
     setItensCarrinho((prevItens) =>
