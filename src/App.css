@@ -94,6 +94,7 @@ body{
     grid-auto-rows: auto;
     grid-column-gap: 1em;
     grid-row-gap: 1em;
+    justify-content: center;
 }
 
 .CaixaPratoGridElement{
@@ -101,6 +102,7 @@ body{
     flex-direction: column;
     align-items: center;
     height: 100%;
+    min-width: 275px;
 }
 
 
@@ -116,6 +118,13 @@ body{
 
 .DescItem{
     margin: 0.45em;
+    height: 70px;
+
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    display: -webkit-box;
+    -webkit-line-clamp: 4; 
+    -webkit-box-orient: vertical;
 }
 
 .ValorItem{
@@ -200,6 +209,20 @@ body{
 .TopLevelDetalhes{
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8em;
+}
+
+.TopLevelDetalhes > h1{
+    font-size: 1.3em;
+}
+
+.CloseDetalhesCaixa{
+    font-size: 1.2em;
+}
+
+.CloseDetalhesCaixa:hover{
+    cursor: pointer;
 }
 
 .MainCaixaDetalhes{
@@ -213,7 +236,30 @@ body{
     background-color: var(--Second-Color);
     color: var(--Stand-Color);
 
-    height: 75%;
+    height: 50%;
+}
+
+.ValorDetalhesCaixa{
+    margin-top: 0.8em;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.DescricaoIngCaixa{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    height: 100%;
+    margin: 0.8em 0 0.8em 0;
+}
+
+.IngedientesList{
+    list-style: inside;
+}
+
+.ItemIngredientList{
+    margin-left: 0.8em;
 }
 
 .DescricaoDetalhesCaixa{
@@ -228,12 +274,15 @@ body{
     color: var(--Second-Color);
     
     width: 100%;
-    height: 2em;
+    padding: 0.7em;
 
     bottom: 0;
 
 }
 
+.BtnAddToCarDetalhes:hover{
+    cursor: pointer;
+}
 
 /*Header*/
 .HeaderClass{

@@ -22,7 +22,7 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
           Quantidade: 1,
           Valor: 13.5,
           DescResulm: "Resumo de teste 1",
-          DescComp: "Descrição completa de teste 1",
+          DescComp: "Descrição completa de teste 1: Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, minus labore aliquid distinctio aperiam itaque est rem dignissimos doloremque repellendus non accusamus fugiat tempore eveniet aspernatur earum accusantium nobis laudantium."
         },
         {
           ID: 1,
@@ -45,9 +45,9 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
       const ItemsCardapio: PratoType[] = [
         {
           Nome: "Prato1",
-          Descrição: "Descriçõa Prato",
+          Descrição: "Descriçõa Prato: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum fugit amet, ex accusamus deleniti, blanditiis illo distinctio porro tenetur itaque voluptatum optio! Architecto sint similique perferendis, repudiandae corporis unde minima." ,
           Valor: 12.0,
-          DescriçãoDetalhada: "Descrição detalhada do produto",
+          DescriçãoDetalhada: "Descrição completa de teste 1: Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, minus labore aliquid distinctio aperiam itaque est rem dignissimos doloremque repellendus non accusamus fugiat tempore eveniet aspernatur earum accusantium nobis laudantium.",
           Ingredientes: ["Pão", "Queijo", "Salame"],
           ID: 0,
           Conjunto: "Teste",
