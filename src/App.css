@@ -96,7 +96,6 @@ body{
     grid-row-gap: 1em;
 }
 
-
 .CaixaPratoGridElement{
     display: flex;
     flex-direction: column;
@@ -109,7 +108,7 @@ body{
     margin-top: 1em;
     width: 100%;
     background-color: var(--Stand-Color);
-    border-radius: 1em 1em 0px 0px;
+    border-radius: 1em;
 
     display: flex;
     flex-direction: column;
@@ -130,14 +129,23 @@ body{
     background-color: var(--Second-Color);
 }
 
+.BtnAddToCar{
+    border: 0;
+    border-radius: 0 0 0.5em 0.5em ;
+    background-color: greenyellow;
+    color: var(--Second-Color);
+    
+    width: 100%;
+    height: 2em;
+}
+
+.BtnAddToCar:hover{
+    cursor: pointer;
+}
+
 .ValorItem > strong{
     color: var(--Green-Color);
 }
-
-.ValorItem:hover{
-    cursor: pointer
-}
-
 
 .PhotoPrato{
     width: 100%;
@@ -151,16 +159,86 @@ body{
 
     color: var(--Stand-Color);
 }
+ 
+
 
 .ButaoConclusaoP{
 
 }
 
+/*Detalhes prato*/
+.DetalhesPrato{
+    width: 100%;
+    height: 100%;
+    z-index: 250;
+    left: 0;
+    top: 0;
+    
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.338);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.CaixaDetalhesPrato{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--Stand-Color);
+    z-index: 300;
+
+    width: 70vw;
+    height: 65vh;
+
+    border-radius: 0.5em;
+
+    padding: 1.5em;
+}
+
+.TopLevelDetalhes{
+    display: flex;
+    justify-content: space-between;
+}
+
+.MainCaixaDetalhes{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.ImgDetalhesPrato{
+    background-color: var(--Second-Color);
+    color: var(--Stand-Color);
+
+    height: 75%;
+}
+
+.DescricaoDetalhesCaixa{
+    height: 70%;
+}
+
+.BtnAddToCarDetalhes{
+    border: 0;
+    border-radius: 0.5em;
+
+    background-color: greenyellow;
+    color: var(--Second-Color);
+    
+    width: 100%;
+    height: 2em;
+
+    bottom: 0;
+
+}
+
+
 /*Header*/
 .HeaderClass{
     background-color: var(--Second-Color);
     color: var(--Stand-Color);
-    z-index: 100;
     display: flex;
     align-items: center;
     justify-content: space-around;

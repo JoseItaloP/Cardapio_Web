@@ -1,10 +1,13 @@
 import { createContext, useEffect, useState } from 'react'
 import ItemPedido from '../types/ItemPedidoType'
 import PedidoType from '../types/PedidoType';
+import PratoType from '../types/PratoType';
 
 type ContextType = {
     carrinho: ItemPedido[];
     Pedidos: PedidoType;
+    ItemsCardapio: PratoType[]; 
+    Conjuntos: string[]
 }
 
 export const CartContext = createContext({} as ContextType)
@@ -38,6 +41,91 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
           DescComp: "Descrição completa de teste 3",
         },
       ]
+      
+      const ItemsCardapio: PratoType[] = [
+        {
+          Nome: "Prato1",
+          Descrição: "Descriçõa Prato",
+          Valor: 12.0,
+          DescriçãoDetalhada: "Descrição detalhada do produto",
+          Ingredientes: ["Pão", "Queijo", "Salame"],
+          ID: 0,
+          Conjunto: "Teste",
+        },
+        {
+          Nome: "Prato2",
+          Descrição: "Descriçõa Prato",
+          Valor: 12.0,
+          DescriçãoDetalhada: "Descrição detalhada do produto",
+          Ingredientes: ["Pão", "Queijo", "Salame"],
+          ID: 1,
+          Conjunto: "Teste",
+        },
+        {
+          Nome: "Prato3",
+          Descrição: "Descriçõa Prato",
+          Valor: 12.0,
+          DescriçãoDetalhada: "Descrição detalhada do produto",
+          Ingredientes: ["Pão", "Queijo", "Salame"],
+          ID: 2,
+          Conjunto: "Teste",
+        },
+        {
+          Nome: "Prato4",
+          Descrição: "Descriçõa Prato",
+          Valor: 12.0,
+          DescriçãoDetalhada: "Descrição detalhada do produto",
+          Ingredientes: ["Pão", "Queijo", "Salame"],
+          ID: 3,
+          Conjunto: "Teste",
+        },
+        {
+          Nome: "Prato5",
+          Descrição: "Descriçõa Prato",
+          Valor: 12.0,
+          DescriçãoDetalhada: "Descrição detalhada do produto",
+          Ingredientes: ["Pão", "Queijo", "Salame"],
+          ID: 4,
+          Conjunto: "Teste",
+        },
+        {
+          Nome: "Prato6",
+          Descrição: "Descriçõa Prato",
+          Valor: 12.0,
+          DescriçãoDetalhada: "Descrição detalhada do produto",
+          Ingredientes: ["Pão", "Queijo", "Salame"],
+          ID: 5,
+          Conjunto: "Teste",
+        },
+        {
+          Nome: "Prato7",
+          Descrição: "Descriçõa Prato",
+          Valor: 12.0,
+          DescriçãoDetalhada: "Descrição detalhada do produto",
+          Ingredientes: ["Pão", "Queijo", "Salame"],
+          ID: 6,
+          Conjunto: "Teste",
+        },
+        {
+          Nome: "Prato8",
+          Descrição: "Descriçõa Prato",
+          Valor: 12.0,
+          DescriçãoDetalhada: "Descrição detalhada do produto",
+          Ingredientes: ["Pão", "Queijo", "Salame"],
+          ID: 7,
+          Conjunto: "Teste",
+        },
+        {
+          Nome: "Prato9",
+          Descrição: "Descriçõa Prato",
+          Valor: 12.0,
+          DescriçãoDetalhada: "Descrição detalhada do produto",
+          Ingredientes: ["Pão", "Queijo", "Salame"],
+          ID: 8,
+          Conjunto: "Teste",
+        },
+      ];
+      const Conjuntos: string[] = ["Teste"];
 
       const EstadoPedido = [
         "Recebido",
@@ -62,7 +150,7 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
       },[carrinho])
 
   return (
-    <CartContext.Provider value={{carrinho, Pedidos}}>
+    <CartContext.Provider value={{carrinho, Pedidos, ItemsCardapio, Conjuntos}}>
       {children}
     </CartContext.Provider>
   )
