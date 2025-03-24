@@ -9,6 +9,7 @@ type ContextType = {
     ItemsCardapio: PratoType[]; 
     Conjuntos: string[];
     AddingToCartItem: (ItemKey: number) => void;
+    ChangeQuantity: (metodo: string, IdItem: number) => void;
 }
 
 export const CartContext = createContext({} as ContextType)
@@ -183,8 +184,24 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
         }
       } 
 
+      function ChangeQuantity(metodo: string, IdItem: number) {
+        setCarrinho((prevItens) =>
+          prevItens.map((item) =>
+            item.ID === IdItem
+              ? {
+                  ...item,
+                  Quantidade:
+                    metodo === "menos"
+                      ? Math.max(item.Quantidade - 1, 0)
+                      : item.Quantidade + 1,
+                }
+              : item
+          )
+        );
+      }
+
   return (
-    <CartContext.Provider value={{carrinho, Pedidos, ItemsCardapio, Conjuntos, AddingToCartItem}}>
+    <CartContext.Provider value={{carrinho, Pedidos, ItemsCardapio, Conjuntos, AddingToCartItem, ChangeQuantity}}>
       {children}
     </CartContext.Provider>
   )

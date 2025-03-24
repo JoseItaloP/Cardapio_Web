@@ -13,7 +13,7 @@ export default function Conjunto() {
                 return <NoItems />;
               } else {
                 return (
-                  <Options Conjunto={Conjunto} ItemsCardapio={ItemsCardapio} />
+                  <Options Conjunto={Conjunto} ItemsCardapio={ItemsCardapio} key={Conjunto} />
                 );
               }
     })}

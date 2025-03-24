@@ -1,457 +1,441 @@
-:root{
- --Stand-Color: white;
- --Second-Color: black;
- --Third-Color: grey;
- --Green-Color: green;
+:root {
+  --Stand-Color: white;
+  --Second-Color: black;
+  --Third-Color: grey;
+  --Green-Color: green;
 }
 
-*{
-    margin: 0;
-    padding: 0;
-    
+* {
+  margin: 0;
+  padding: 0;
 }
 
-body{
-    background-color: var(--Stand-Color);    
-    color: var(--Second-Color);
-    min-height: 100vh;
+body {
+  background-color: var(--Stand-Color);
+  color: var(--Second-Color);
+  min-height: 100vh;
 
-    display: flex;
-    flex-direction: column;
-    
+  display: flex;
+  flex-direction: column;
 }
 
-#root{
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.MainPage{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.MainPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-    position: relative;
-    z-index: 50;
+  position: relative;
+  z-index: 50;
 }
 
+.FooterClass {
+  background-color: var(--Second-Color);
+  color: var(--Stand-Color);
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-.FooterClass{
-    background-color: var(--Second-Color);
-    color: var(--Stand-Color);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 1em;
+  padding: 1em;
 }
 
-.MainCardapioPage{
-    flex: 1;
-    padding-top: 2em;
-    padding-bottom: 2em;
+.MainCardapioPage {
+  flex: 1;
+  padding-top: 2em;
+  padding-bottom: 2em;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /*Pratos e conjuntos de pratos*/
 /*Phone's Mater*/
-.DivPagePedido{
-    display: flex;
-    width: 70%;
-    margin-top: 1em;
+.DivPagePedido {
+  display: flex;
+  width: 70%;
+  margin-top: 1em;
 }
 
-.ConjuntoTipoPratos{
-    background-color: var(--Third-Color);
-    padding: 2em;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+.ConjuntoTipoPratos {
+  background-color: var(--Third-Color);
+  padding: 2em;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 
-    border-radius: 5px;
+  border-radius: 5px;
 }
 
-.ConjuntoTipoPratos > h1{
-    margin-bottom: 1em;
+.ConjuntoTipoPratos > h1 {
+  margin-bottom: 1em;
 }
 
-.GridHandlerPratos{
-    list-style: none;
+.GridHandlerPratos {
+  list-style: none;
 
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-auto-rows: auto;
-    grid-column-gap: 1em;
-    grid-row-gap: 1em;
-    justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-auto-rows: auto;
+  grid-column-gap: 1em;
+  grid-row-gap: 1em;
+  justify-content: center;
 }
 
-.CaixaPratoGridElement{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-    min-width: 275px;
+.CaixaPratoGridElement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  min-width: 275px;
 }
 
+.CaixaPrato {
+  margin-top: 1em;
+  width: 100%;
+  background-color: var(--Stand-Color);
+  border-radius: 1em;
 
-.CaixaPrato{
-    margin-top: 1em;
-    width: 100%;
-    background-color: var(--Stand-Color);
-    border-radius: 1em;
-
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-.DescItem{
-    margin: 0.45em;
-    height: 70px;
+.DescItem {
+  margin: 0.45em;
+  height: 70px;
 
-    overflow: hidden; 
-    text-overflow: ellipsis; 
-    display: -webkit-box;
-    -webkit-line-clamp: 4; 
-    -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 
-.ValorItem{
-    margin-top: 0.5em;
-    width: 100%;
-    height: 2em;
+.ValorItem {
+  margin-top: 0.5em;
+  width: 100%;
+  height: 2em;
 
-    border: 0;
-    border-radius: 0.5em 0.5em 0 0;
-    color: var(--Stand-Color);
-    background-color: var(--Second-Color);
+  border: 0;
+  border-radius: 0.5em 0.5em 0 0;
+  color: var(--Stand-Color);
+  background-color: var(--Second-Color);
 }
 
-.BtnAddToCar{
-    border: 0;
-    border-radius: 0 0 0.5em 0.5em ;
-    background-color: greenyellow;
-    color: var(--Second-Color);
-    
-    width: 100%;
-    height: 2em;
+.BtnAddToCar {
+  border: 0;
+  border-radius: 0 0 0.5em 0.5em;
+  background-color: greenyellow;
+  color: var(--Second-Color);
+
+  width: 100%;
+  height: 2em;
 }
 
-.BtnAddToCar:hover{
-    cursor: pointer;
+.BtnAddToCar:hover {
+  cursor: pointer;
 }
 
-.ValorItem > strong{
-    color: var(--Green-Color);
+.ValorItem > strong {
+  color: var(--Green-Color);
 }
 
-.PhotoPrato{
-    width: 100%;
-    height: 7em;
-    background-color: var(--Second-Color);
-    border-radius: 1em 1em 0px 0px;
+.PhotoPrato {
+  width: 100%;
+  height: 7em;
+  background-color: var(--Second-Color);
+  border-radius: 1em 1em 0px 0px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    color: var(--Stand-Color);
-}
- 
-
-
-.ButaoConclusaoP{
-    margin-top: 2em;
-    padding: 0.5em;
-    text-decoration: none;
-
-    border: 0;
-    border-radius: 0.5em;
-
-    background-color: var(--Second-Color);
-    color: var(--Stand-Color);
-    font-size: 1.2em;
+  color: var(--Stand-Color);
 }
 
-.ButaoConclusaoP:hover{
-    cursor: pointer;
+.ButaoConclusaoP {
+  margin-top: 2em;
+  padding: 0.5em;
+  text-decoration: none;
+
+  border: 0;
+  border-radius: 0.5em;
+
+  background-color: var(--Second-Color);
+  color: var(--Stand-Color);
+  font-size: 1.2em;
+}
+
+.ButaoConclusaoP:hover {
+  cursor: pointer;
 }
 
 /*Detalhes prato*/
-.DetalhesPrato{
-    width: 100%;
-    height: 100%;
-    z-index: 250;
-    left: 0;
-    top: 0;
-    
-    position: fixed;
-    background-color: rgba(0, 0, 0, 0.338);
+.DetalhesPrato {
+  width: 100%;
+  height: 100%;
+  z-index: 250;
+  left: 0;
+  top: 0;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.338);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.CaixaDetalhesPrato{
-    display: flex;
-    flex-direction: column;
-    background-color: var(--Stand-Color);
-    z-index: 300;
+.CaixaDetalhesPrato {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--Stand-Color);
+  z-index: 300;
 
-    width: 70vw;
-    height: 65vh;
+  width: 70vw;
+  height: 65vh;
 
-    border-radius: 0.5em;
+  border-radius: 0.5em;
 
-    padding: 1.5em;
+  padding: 1.5em;
 }
 
-.TopLevelDetalhes{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.8em;
+.TopLevelDetalhes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8em;
 }
 
-.TopLevelDetalhes > h1{
-    font-size: 1.3em;
+.TopLevelDetalhes > h1 {
+  font-size: 1.3em;
 }
 
-.CloseDetalhesCaixa{
-    font-size: 1.2em;
+.CloseDetalhesCaixa {
+  font-size: 1.2em;
 }
 
-.CloseDetalhesCaixa:hover{
-    cursor: pointer;
+.CloseDetalhesCaixa:hover {
+  cursor: pointer;
 }
 
-.MainCaixaDetalhes{
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.MainCaixaDetalhes {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.ImgDetalhesPrato{
-    background-color: var(--Second-Color);
-    color: var(--Stand-Color);
+.ImgDetalhesPrato {
+  background-color: var(--Second-Color);
+  color: var(--Stand-Color);
 
-    height: 50%;
+  height: 50%;
 }
 
-.ValorDetalhesCaixa{
-    margin-top: 0.8em;
-    text-align: center;
-    font-size: 1.2em;
+.ValorDetalhesCaixa {
+  margin-top: 0.8em;
+  text-align: center;
+  font-size: 1.2em;
 }
 
-.DescricaoIngCaixa{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.DescricaoIngCaixa {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
-    height: 100%;
-    margin: 0.8em 0 0.8em 0;
+  height: 100%;
+  margin: 0.8em 0 0.8em 0;
 }
 
-.IngedientesList{
-    list-style: inside;
+.IngedientesList {
+  list-style: inside;
 }
 
-.ItemIngredientList{
-    margin-left: 0.8em;
+.ItemIngredientList {
+  margin-left: 0.8em;
 }
 
-.DescricaoDetalhesCaixa{
-    height: 70%;
+.DescricaoDetalhesCaixa {
+  height: 70%;
 }
 
-.BtnAddToCarDetalhes{
-    border: 0;
-    border-radius: 0.5em;
+.BtnAddToCarDetalhes {
+  border: 0;
+  border-radius: 0.5em;
 
-    background-color: greenyellow;
-    color: var(--Second-Color);
-    
-    width: 100%;
-    padding: 0.7em;
+  background-color: greenyellow;
+  color: var(--Second-Color);
 
-    bottom: 0;
+  width: 100%;
+  padding: 0.7em;
 
+  bottom: 0;
 }
 
-.BtnAddToCarDetalhes:hover{
-    cursor: pointer;
+.BtnAddToCarDetalhes:hover {
+  cursor: pointer;
 }
 
 /*Header*/
-.HeaderClass{
-    background-color: var(--Second-Color);
-    color: var(--Stand-Color);
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+.HeaderClass {
+  background-color: var(--Second-Color);
+  color: var(--Stand-Color);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 
-    position: relative;
+  position: relative;
 
-    padding: 1em;
-    
+  padding: 1em;
 }
-.CartOBJ{
-    display: flex;
+.CartOBJ {
+  display: flex;
 }
-.NumberOfItens{
-    margin-top: 11px;
-    margin-left: 14px;
+.NumberOfItens {
+  margin-top: 11px;
+  margin-left: 14px;
 
-    padding: 0px 5px;
+  padding: 0px 5px;
 
-    background-color: var(--Stand-Color);
-    color: var(--Second-Color);
+  background-color: var(--Stand-Color);
+  color: var(--Second-Color);
 
-    border-radius: 50%;
-    position: absolute;
-}
-
-.ItenNameCart{
-    z-index: 100;
-    color: var(--Second-Color);
+  border-radius: 50%;
+  position: absolute;
 }
 
-.cartIcon{
-    font-size: 1.3em;
+.ItenNameCart {
+  z-index: 100;
+  color: var(--Second-Color);
 }
 
-.CartContainer{
-    position: relative;
-    display: inline-block;
+.cartIcon {
+  font-size: 1.3em;
 }
 
-.CartContainer:hover{
-    cursor: pointer;
+.CartContainer {
+  position: relative;
+  display: inline-block;
 }
 
- /*---*/
+.CartContainer:hover {
+  cursor: pointer;
+}
+
+/*---*/
 .CardDiv {
-    display: none;
-    cursor: default;
-    padding: 10px;
-    list-style: none;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  /* Estilo para Desktop (janela pequena ao passar o mouse) */
-  .CardDiv.desktop {
-    
-    top: 70%;
-    left: 0;
-    min-width: 100px;
-    display: block;
-    position: absolute;
-    padding: 1em;
-  }
-
-  .InsideDivList.desktop{
-    border: 1px solid black;
-    background-color: white;
-
-    width: 100%;
-    border-radius: 1em;
-    display: block;
-  }
-  
-  /* Estilo para Mobile (ocupa a tela toda) */
-  .CardDiv.mobile {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgb(0 0 0 / 22%);
-    padding: 0;
-    border: 0;
-    display: flex;
-        flex-direction: row-reverse;
-        z-index: 200;
-  }
-  
-  /* Ícone de fechar no Mobile */
-  .CloseIcon {
-    top: 20px;
-    right: 20px;
-    font-size: 2rem;
-    cursor: pointer;
-    color: black
-  }
-
-  .CloseIcon.desktop{
-    display: none;
-  }
- /*---*/
-
-.InsideDivList{
-    background: white;
-    width: 50%;
-    height: 100%;
-    padding: 1em;
-
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row-reverse;
+  display: none;
+  cursor: default;
+  padding: 10px;
+  list-style: none;
+  transition: all 0.3s ease-in-out;
 }
 
-.CartList{
-    list-style: none;
+/* Estilo para Desktop (janela pequena ao passar o mouse) */
+.CardDiv.desktop {
+  top: 70%;
+  left: 0;
+  min-width: 100px;
+  display: block;
+  position: absolute;
+  padding: 1em;
 }
 
+.InsideDivList.desktop {
+  border: 1px solid black;
+  background-color: white;
 
-.disableBox{
-    display: none;
-    visibility: hidden;
+  width: 100%;
+  border-radius: 1em;
+  display: block;
 }
 
-.ShowBox{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    position: fixed;
-
-    background-color: rgba(0, 0, 0, 0.411);
-
-    width: 100%;
-    height: 100vh;
-
-    top: 0;
+/* Estilo para Mobile (ocupa a tela toda) */
+.CardDiv.mobile {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgb(0 0 0 / 22%);
+  padding: 0;
+  border: 0;
+  display: flex;
+  flex-direction: row-reverse;
+  z-index: 200;
 }
 
-.AlignConfirmDiv{
-    display: flex;
-    flex-direction: row-reverse;
-
-    background-color: var(--Stand-Color);
-    
-    width: 80%;
-    max-width: 500px;
-
-    border-radius: 0.5em;
-    padding: 1em;
-    
+/* Ícone de fechar no Mobile */
+.CloseIcon {
+  top: 20px;
+  right: 20px;
+  font-size: 2rem;
+  cursor: pointer;
+  color: black;
 }
 
+.CloseIcon.desktop {
+  display: none;
+}
+/*---*/
 
+.InsideDivList {
+  background: white;
+  width: 50%;
+  height: 100%;
+  padding: 1em;
 
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+}
 
+.CartList {
+  list-style: none;
+}
+
+.disableBox {
+  display: none;
+  visibility: hidden;
+}
+
+.ShowBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+
+  background-color: rgba(0, 0, 0, 0.411);
+
+  width: 100%;
+  height: 100vh;
+
+  top: 0;
+}
+
+.AlignConfirmDiv {
+  display: flex;
+  flex-direction: row-reverse;
+  background-color: var(--Stand-Color);
+
+  border-radius: 0.5em;
+  padding: 1em;
+
+  justify-content: center;
+
+  width: 80%;
+}

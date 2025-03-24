@@ -18,7 +18,7 @@ export default function Prato({ Item }: PratoProps) {
 
   return (
     <>
-      <li className="CaixaPratoGridElement">
+      <li className="CaixaPratoGridElement" key={Item.ID}>
         <h2>{Item.Nome}</h2>
         <div className="CaixaPrato">
           <div className="PhotoPrato" onClick={() => setDetalhesOn(true)}>
@@ -52,8 +52,8 @@ export default function Prato({ Item }: PratoProps) {
               <p className="DescricaoDetalhesCaixa">{Item.DescComp}</p>
               <ul className="IngedientesList">
                 <h1>Ingredientes: </h1>
-                {Item.Ingredientes.map((Ing) => (
-                  <li className="ItemIngredientList">{Ing}</li>
+                {Item.Ingredientes.map((Ing,index) => (
+                  <li className="ItemIngredientList" key={`${index}:${Item.ID}`}>{Ing}</li>
                 ))}
               </ul>
             </div>

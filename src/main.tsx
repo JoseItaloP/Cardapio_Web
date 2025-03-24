@@ -2,7 +2,6 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Confirmação from './components/Confirmação.tsx'
 import Endereço from './pages/Pedidos/Endereço.tsx'
 import Conclusão from './pages/Pedidos/Conclusão.tsx'
 import Pagamento from './pages/Pedidos/Pagamento.tsx'
@@ -19,10 +18,7 @@ const router = createBrowserRouter([
   {
     path: "pedido",
     children:[
-      {
-        path: "confirmacao",
-        element: <CartProvider><Confirmação /></CartProvider>
-      },
+      
       {
         path: "endereco",
         element: <Endereço/>

@@ -8,12 +8,12 @@ interface OptionsProps {
 
 export default function Options({ ItemsCardapio, Conjunto }: OptionsProps) {
   return (
-    <section className="ConjuntoTipoPratos">
+    <section className="ConjuntoTipoPratos" key={Conjunto}>
       <h1>{Conjunto}</h1>
       <ul className="GridHandlerPratos">
         {ItemsCardapio.map((item: PratoType) => {
           if (Conjunto === item.Conjunto) {
-            return <Prato Item={item} />;
+            return <Prato Item={item} key={item.ID}/>;
           }
         })}
       </ul>
