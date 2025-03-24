@@ -40,7 +40,7 @@ export default function CartOBJ() {
               <ul className="CartList">
                 {carrinho.map((item) => (
                   <li key={item.ID} className="ItenNameCart">
-                    {item.Nome}
+                    {item.Nome} - x{item.Quantidade}
                   </li>
                 ))}
               </ul>

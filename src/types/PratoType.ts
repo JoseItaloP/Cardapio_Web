@@ -2,7 +2,7 @@ type PratoType = {
     Nome: string,
     Descrição: string,
     Valor: number,
-    DescriçãoDetalhada: string,
+    DescComp: string,
     Ingredientes: string[],
     ID: number,
     Conjunto: string,

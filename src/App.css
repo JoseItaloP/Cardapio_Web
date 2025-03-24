@@ -172,7 +172,20 @@ body{
 
 
 .ButaoConclusaoP{
+    margin-top: 2em;
+    padding: 0.5em;
+    text-decoration: none;
 
+    border: 0;
+    border-radius: 0.5em;
+
+    background-color: var(--Second-Color);
+    color: var(--Stand-Color);
+    font-size: 1.2em;
+}
+
+.ButaoConclusaoP:hover{
+    cursor: pointer;
 }
 
 /*Detalhes prato*/
@@ -410,30 +423,35 @@ body{
     visibility: hidden;
 }
 
-/*Card fora do cell*/
-/* .CardDiv{
-    display: none;
-    position: absolute;
-    padding: 1em;
-    list-style: none;
-    
-    top: 60%;
-    min-width: 150px;
+.ShowBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    z-index: 200;
+    position: fixed;
+
+    background-color: rgba(0, 0, 0, 0.411);
+
+    width: 100%;
+    height: 100vh;
+
+    top: 0;
 }
 
-.CartList{
+.AlignConfirmDiv{
+    display: flex;
+    flex-direction: row-reverse;
 
-    background: white;
-    border: 1px solid #ccc;
-    padding: 10px;
-    list-style: none;
+    background-color: var(--Stand-Color);
     
-    min-width: 150px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 500px;
 
-} */
+    border-radius: 0.5em;
+    padding: 1em;
+    
+}
+
 
 
 

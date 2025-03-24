@@ -3,8 +3,10 @@ type ItemPedido = {
     Nome: string,
     Quantidade: number,
     Valor: number,
-    DescResulm: string,
-    DescComp: string
+    Descrição: string,
+    DescComp: string,
+    Conjunto: string,
+    Ingredientes: string[],
 }
 
 export default ItemPedido

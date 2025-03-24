@@ -7,7 +7,8 @@ type ContextType = {
     carrinho: ItemPedido[];
     Pedidos: PedidoType;
     ItemsCardapio: PratoType[]; 
-    Conjuntos: string[]
+    Conjuntos: string[];
+    AddingToCartItem: (ItemKey: number) => void;
 }
 
 export const CartContext = createContext({} as ContextType)
@@ -15,39 +16,45 @@ export const CartContext = createContext({} as ContextType)
 export default function CartProvider({children}: {children: React.ReactNode})  {
 
   const [TempoPedido, setTempoPedido] = useState(0)
-    const carrinho = [
-        {
-          ID: 0,
-          Nome: "TESTE 1",
-          Quantidade: 1,
-          Valor: 13.5,
-          DescResulm: "Resumo de teste 1",
-          DescComp: "Descrição completa de teste 1: Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, minus labore aliquid distinctio aperiam itaque est rem dignissimos doloremque repellendus non accusamus fugiat tempore eveniet aspernatur earum accusantium nobis laudantium."
-        },
-        {
-          ID: 1,
-          Nome: "TESTE 2",
-          Quantidade: 3,
-          Valor: 10.0,
-          DescResulm: "Resumo de teste 2, Resumo de teste 2",
-          DescComp: "Descrição completa de teste 2",
-        },
-        {
-          ID: 2,
-          Nome: "TESTE 3",
-          Quantidade: 2,
-          Valor: 15.0,
-          DescResulm: "Resumo de teste 3",
-          DescComp: "Descrição completa de teste 3",
-        },
-      ]
+    const [carrinho, setCarrinho] = useState<ItemPedido[]>([
+      {
+        Nome: "Prato1",
+        Descrição: "Descriçõa Prato: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum fugit amet, ex accusamus deleniti, blanditiis illo distinctio porro tenetur itaque voluptatum optio! Architecto sint similique perferendis, repudiandae corporis unde minima." ,
+        Valor: 12.0,
+        DescComp: "Descrição completa de teste 1: Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, minus labore aliquid distinctio aperiam itaque est rem dignissimos doloremque repellendus non accusamus fugiat tempore eveniet aspernatur earum accusantium nobis laudantium.",
+        Ingredientes: ["Pão", "Queijo", "Salame"],
+        ID: 0,
+        Conjunto: "Teste",
+        Quantidade: 1,
+      },
+      {
+        Nome: "Prato2",
+        Descrição: "Descriçõa Prato",
+        Valor: 12.0,
+        DescComp: "Descrição detalhada do produto",
+        Ingredientes: ["Pão", "Queijo", "Salame"],
+        ID: 1,
+        Conjunto: "Teste",
+        Quantidade: 3,
+      },
+      {
+        Nome: "Prato3",
+        Descrição: "Descriçõa Prato",
+        Valor: 12.0,
+        DescComp: "Descrição detalhada do produto",
+        Ingredientes: ["Pão", "Queijo", "Salame"],
+        ID: 2,
+        Conjunto: "Teste",
+        Quantidade: 2,
+      },
+      ])
       
       const ItemsCardapio: PratoType[] = [
         {
           Nome: "Prato1",
           Descrição: "Descriçõa Prato: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum fugit amet, ex accusamus deleniti, blanditiis illo distinctio porro tenetur itaque voluptatum optio! Architecto sint similique perferendis, repudiandae corporis unde minima." ,
           Valor: 12.0,
-          DescriçãoDetalhada: "Descrição completa de teste 1: Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, minus labore aliquid distinctio aperiam itaque est rem dignissimos doloremque repellendus non accusamus fugiat tempore eveniet aspernatur earum accusantium nobis laudantium.",
+          DescComp: "Descrição completa de teste 1: Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, minus labore aliquid distinctio aperiam itaque est rem dignissimos doloremque repellendus non accusamus fugiat tempore eveniet aspernatur earum accusantium nobis laudantium.",
           Ingredientes: ["Pão", "Queijo", "Salame"],
           ID: 0,
           Conjunto: "Teste",
@@ -56,7 +63,7 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
           Nome: "Prato2",
           Descrição: "Descriçõa Prato",
           Valor: 12.0,
-          DescriçãoDetalhada: "Descrição detalhada do produto",
+          DescComp: "Descrição detalhada do produto",
           Ingredientes: ["Pão", "Queijo", "Salame"],
           ID: 1,
           Conjunto: "Teste",
@@ -65,7 +72,7 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
           Nome: "Prato3",
           Descrição: "Descriçõa Prato",
           Valor: 12.0,
-          DescriçãoDetalhada: "Descrição detalhada do produto",
+          DescComp: "Descrição detalhada do produto",
           Ingredientes: ["Pão", "Queijo", "Salame"],
           ID: 2,
           Conjunto: "Teste",
@@ -74,7 +81,7 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
           Nome: "Prato4",
           Descrição: "Descriçõa Prato",
           Valor: 12.0,
-          DescriçãoDetalhada: "Descrição detalhada do produto",
+          DescComp: "Descrição detalhada do produto",
           Ingredientes: ["Pão", "Queijo", "Salame"],
           ID: 3,
           Conjunto: "Teste",
@@ -83,7 +90,7 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
           Nome: "Prato5",
           Descrição: "Descriçõa Prato",
           Valor: 12.0,
-          DescriçãoDetalhada: "Descrição detalhada do produto",
+          DescComp: "Descrição detalhada do produto",
           Ingredientes: ["Pão", "Queijo", "Salame"],
           ID: 4,
           Conjunto: "Teste",
@@ -92,7 +99,7 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
           Nome: "Prato6",
           Descrição: "Descriçõa Prato",
           Valor: 12.0,
-          DescriçãoDetalhada: "Descrição detalhada do produto",
+          DescComp: "Descrição detalhada do produto",
           Ingredientes: ["Pão", "Queijo", "Salame"],
           ID: 5,
           Conjunto: "Teste",
@@ -101,7 +108,7 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
           Nome: "Prato7",
           Descrição: "Descriçõa Prato",
           Valor: 12.0,
-          DescriçãoDetalhada: "Descrição detalhada do produto",
+          DescComp: "Descrição detalhada do produto",
           Ingredientes: ["Pão", "Queijo", "Salame"],
           ID: 6,
           Conjunto: "Teste",
@@ -110,7 +117,7 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
           Nome: "Prato8",
           Descrição: "Descriçõa Prato",
           Valor: 12.0,
-          DescriçãoDetalhada: "Descrição detalhada do produto",
+          DescComp: "Descrição detalhada do produto",
           Ingredientes: ["Pão", "Queijo", "Salame"],
           ID: 7,
           Conjunto: "Teste",
@@ -119,12 +126,13 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
           Nome: "Prato9",
           Descrição: "Descriçõa Prato",
           Valor: 12.0,
-          DescriçãoDetalhada: "Descrição detalhada do produto",
+          DescComp: "Descrição detalhada do produto",
           Ingredientes: ["Pão", "Queijo", "Salame"],
           ID: 8,
           Conjunto: "Teste",
         },
       ];
+      
       const Conjuntos: string[] = ["Teste"];
 
       const EstadoPedido = [
@@ -147,10 +155,36 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
 
       useEffect(()=>{
         setTempoPedido(carrinho.length * 10)
+
+        const novoCarrinho = carrinho.filter((item) => item.Quantidade > 0);
+
+        if (novoCarrinho.length !== carrinho.length) {
+          setCarrinho(novoCarrinho);
+        }
+
       },[carrinho])
 
+      function AddingToCartItem(ItemKey: number){
+        const ItemFind = ItemsCardapio.find((Item)=>Item.ID == ItemKey)
+        if(ItemFind){
+          setCarrinho((prevCarrinho) => {
+            const JaExiste = prevCarrinho.find((Item) => Item.ID === ItemFind.ID);
+      
+            if (JaExiste) {
+              
+              return prevCarrinho.map((item) =>
+                item.ID === ItemFind.ID ? { ...item, Quantidade: item.Quantidade + 1 } : item
+              );
+            } else {
+              
+              return [...prevCarrinho, { ...ItemFind, Quantidade: 1 }];
+            }
+          });
+        }
+      } 
+
   return (
-    <CartContext.Provider value={{carrinho, Pedidos, ItemsCardapio, Conjuntos}}>
+    <CartContext.Provider value={{carrinho, Pedidos, ItemsCardapio, Conjuntos, AddingToCartItem}}>
       {children}
     </CartContext.Provider>
   )
