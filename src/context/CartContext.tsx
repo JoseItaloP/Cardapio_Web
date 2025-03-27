@@ -5,7 +5,7 @@ import PratoType from '../types/PratoType';
 
 type ContextType = {
     carrinho: ItemPedido[];
-    Pedidos: PedidoType;
+    Pedido: PedidoType;
     ItemsCardapio: PratoType[]; 
     Conjuntos: string[];
     AddingToCartItem: (ItemKey: number) => void;
@@ -137,18 +137,18 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
       const Conjuntos: string[] = ["Teste"];
 
       const EstadoPedido = [
-        "Recebido",
-        "Pedido",
-        "Pronto",
-        "Saiu"
+        "Recebido pelo restaurante",
+        "Pedido em preparação",
+        "Pronto para coleta",
+        "Saiu para entrega",
+        "Pedido finalizado"
       ]
       
       const ValorTotal = carrinho.reduce((acc, item)=> acc + item.Valor,0)
 
-      const Pedidos: PedidoType = {
+      const Pedido: PedidoType = {
         ID: '0001',
-        EstadoPedido,
-        PosiçãoEstadoPedido: 3,
+        EstadoPedido: EstadoPedido[0],
         ValorTotal,
         ListaItens: carrinho,
         TempoPedido
@@ -201,7 +201,7 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
       }
 
   return (
-    <CartContext.Provider value={{carrinho, Pedidos, ItemsCardapio, Conjuntos, AddingToCartItem, ChangeQuantity}}>
+    <CartContext.Provider value={{carrinho, Pedido, ItemsCardapio, Conjuntos, AddingToCartItem, ChangeQuantity}}>
       {children}
     </CartContext.Provider>
   )

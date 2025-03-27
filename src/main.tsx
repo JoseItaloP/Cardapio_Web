@@ -7,7 +7,7 @@ import Conclusão from './pages/Pedidos/Conclusão.tsx'
 import Pagamento from './pages/Pedidos/Pagamento.tsx'
 import EstadoPedido from './pages/Pedidos/EstadoPedido.tsx'
 import Login from './pages/Funcionarios/Login.tsx'
-import MainFunc from './pages/Funcionarios/MainFunc.tsx'
+import MainFunc from './pages/Funcionarios/FuncPage.tsx'
 import CartProvider from './context/CartContext.tsx'
 
 const router = createBrowserRouter([
