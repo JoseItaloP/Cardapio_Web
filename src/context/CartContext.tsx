@@ -10,6 +10,7 @@ type ContextType = {
     Conjuntos: string[];
     AddingToCartItem: (ItemKey: number) => void;
     ChangeQuantity: (metodo: string, IdItem: number) => void;
+    EditItemCardapio: (NewItem: PratoType, OldItem: PratoType) => void
 }
 
 export const CartContext = createContext({} as ContextType)
@@ -50,7 +51,7 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
       },
       ])
       
-      const ItemsCardapio: PratoType[] = [
+      const [ItemsCardapio, setItemsCardapio]  = useState<PratoType[]>([
         {
           Nome: "Prato1",
           Descrição: "Descriçõa Prato: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum fugit amet, ex accusamus deleniti, blanditiis illo distinctio porro tenetur itaque voluptatum optio! Architecto sint similique perferendis, repudiandae corporis unde minima." ,
@@ -76,7 +77,7 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
           DescComp: "Descrição detalhada do produto",
           Ingredientes: ["Pão", "Queijo", "Salame"],
           ID: 2,
-          Conjunto: "Teste",
+          Conjunto: "Teste2",
         },
         {
           Nome: "Prato4",
@@ -85,7 +86,7 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
           DescComp: "Descrição detalhada do produto",
           Ingredientes: ["Pão", "Queijo", "Salame"],
           ID: 3,
-          Conjunto: "Teste",
+          Conjunto: "Teste2",
         },
         {
           Nome: "Prato5",
@@ -112,7 +113,7 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
           DescComp: "Descrição detalhada do produto",
           Ingredientes: ["Pão", "Queijo", "Salame"],
           ID: 6,
-          Conjunto: "Teste",
+          Conjunto: "Teste2",
         },
         {
           Nome: "Prato8",
@@ -130,11 +131,11 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
           DescComp: "Descrição detalhada do produto",
           Ingredientes: ["Pão", "Queijo", "Salame"],
           ID: 8,
-          Conjunto: "Teste",
+          Conjunto: "Teste2",
         },
-      ];
+      ]);
       
-      const Conjuntos: string[] = ["Teste"];
+      const Conjuntos: string[] = ["Teste", "Teste2"];
 
       const EstadoPedido = [
         "Recebido pelo restaurante",
@@ -200,8 +201,16 @@ export default function CartProvider({children}: {children: React.ReactNode})  {
         );
       }
 
+      function EditItemCardapio(NewItem: PratoType, OldItem: PratoType){
+        setItemsCardapio((prevItens) => 
+          prevItens.map((item)=>
+          item.ID == OldItem.ID ? NewItem :  item
+        )) 
+        console.log(ItemsCardapio)
+      }
+
   return (
-    <CartContext.Provider value={{carrinho, Pedido, ItemsCardapio, Conjuntos, AddingToCartItem, ChangeQuantity}}>
+    <CartContext.Provider value={{carrinho, Pedido, ItemsCardapio, Conjuntos, AddingToCartItem, ChangeQuantity, EditItemCardapio}}>
       {children}
     </CartContext.Provider>
   )

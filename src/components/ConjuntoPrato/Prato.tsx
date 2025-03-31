@@ -36,6 +36,8 @@ export default function Prato({ Item }: PratoProps) {
           </button>
         </div>
       </li>
+
+      
       <section className={`${DetalhesOn ? "DetalhesPrato" : "disableBox"}`}>
         <div className="CaixaDetalhesPrato">
           <div className="TopLevelDetalhes">

@@ -9,6 +9,7 @@ import EstadoPedido from './pages/Pedidos/EstadoPedido.tsx'
 import Login from './pages/Funcionarios/Login.tsx'
 import MainFunc from './pages/Funcionarios/FuncPage.tsx'
 import CartProvider from './context/CartContext.tsx'
+import EditFuncPage from './pages/Funcionarios/EditFuncPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "main",
         element: <MainFunc/>
+      },
+      {
+        path: "edit",
+        element: <CartProvider><EditFuncPage /></CartProvider>
       }
     ]
   }
