@@ -2,6 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../../context/CartContext";
 import PratoType from "../../../types/PratoType";
 import { FaEdit } from "react-icons/fa";
+import LiPrato from "./LiPrato";
+import { IoMdClose } from "react-icons/io";
+
 
 
 export default function TituloEdit({ Conjunto }: { Conjunto: string }) {
@@ -44,7 +47,9 @@ export default function TituloEdit({ Conjunto }: { Conjunto: string }) {
       {DetalhesOn ? (
         <section className={`${DetalhesOn ? "DetalhesPrato" : "disableBox"}`}>
             <div className="BoxEditConjunto">
-                <h1>
+              <IoMdClose className="CloseConjunt" onClick={() => setDetalhesOn(false)}/>
+
+                <h1 className="ConjuntoTittleEdit">
                 <input
                     type="text"
                     name="EditConjunto"
@@ -53,9 +58,9 @@ export default function TituloEdit({ Conjunto }: { Conjunto: string }) {
                     onChange={(e) => setNewConjunto(e.target.value)}
                 />
                 </h1>
-            <ul>
+            <ul className="UlPrato">
                 {ConjuntoItens.map((item) => (
-                <li>{item.Nome}</li>
+                  <LiPrato item={item}/>
                 ))}
             </ul>
 
