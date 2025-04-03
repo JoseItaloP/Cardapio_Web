@@ -434,4 +434,21 @@
     border-radius: 0 0 0.5em 0.5em;
   }
 
+  .SectionChoseNewOptConjunt{
+    padding: 1em;
+    background-color: var(--Stand-Color);
+    color: var(--Second-Color);
+
+    border-radius: 0.5em;
+    border: 1px solid black;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 60%;
+    height: 70%;
+}
+
 /*/\ -------- EditPage ------------- /\*/
