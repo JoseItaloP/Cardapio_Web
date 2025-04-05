@@ -3,48 +3,76 @@ import { IoMdClose } from "react-icons/io";
 import { CartContext } from "../../../context/CartContext";
 import PratoType from "../../../types/PratoType";
 
- function LiPrato({itemID, ConjuntID}:{itemID:number, ConjuntID: number}) {
-  const { ItemsCardapio, Conjuntos, DeleteItemConjunto, MoveItemToOtherConjunto } = useContext(CartContext);
-  const [ItemOnConjunto, setItemOnConjunto] = useState<PratoType | null>()
-  const [OptionChangeConjunt, setOptionChangeConjunt] = useState<number>(ConjuntID)
-  const [disableBox, setDisableBox] = useState(false)
+function LiPrato({ itemID, ConjuntID }: { itemID: number; ConjuntID: number }) {
+  const {
+    ItemsCardapio,
+    Conjuntos,
+    DeleteItemConjunto,
+    MoveItemToOtherConjunto,
+  } = useContext(CartContext);
+  const [ItemOnConjunto, setItemOnConjunto] = useState<PratoType | null>();
+  const [OptionChangeConjunt, setOptionChangeConjunt] = useState<number>(-1);
+  const [disableBox, setDisableBox] = useState(false);
 
-  useEffect(()=>{
-    setItemOnConjunto(ItemsCardapio.find((item)=>
-      item.ID == itemID
-    ))
-  }, [ItemsCardapio, itemID])
+  useEffect(() => {
+    setItemOnConjunto(ItemsCardapio.find((item) => item.ID == itemID));
+  }, [ItemsCardapio, itemID]);
 
- 
+  useEffect(() => {
+    const firstDifferent = Conjuntos.find((conj) => conj.ID !== ConjuntID);
+    if (firstDifferent) {
+      setOptionChangeConjunt(firstDifferent.ID);
+    }
+  }, [Conjuntos, ConjuntID]);
 
-if(!ItemOnConjunto) return null
+  if (!ItemOnConjunto) return null;
   return (
-  <>
-    <li className="LiPrato">
-      <h2 className="RemoverConjH2">
-        <IoMdClose className="RemoverConj" onClick={(()=>DeleteItemConjunto(ItemOnConjunto.ID, ConjuntID))}/>
-      </h2>
+    <>
+      <li className="LiPrato">
+        <h2 className="RemoverConjH2">
+          <IoMdClose
+            className="RemoverConj"
+            onClick={() => DeleteItemConjunto(ConjuntID, ItemOnConjunto.ID)}
+          />
+        </h2>
         <h1>{ItemOnConjunto.Nome}</h1>
-        <h2 className="AdiconarConj" onClick={()=>setDisableBox(true)}>Adicionar a outro Conjunto</h2>
-    </li>
-   {
-    disableBox ? (
-    <div className={`${disableBox ? 'ShowBox' : 'disableBox'}`}>
-      <section className="SectionChoseNewOptConjunt">
-        <h1>Selecione o conjuto para o prato</h1>
-      <select name="" id="">
-        {Conjuntos.map((Conjunt) => Conjunt.ID != ConjuntID ?  (
-          <option value={Conjunt.Nome} onChange={()=>setOptionChangeConjunt(Conjunt.ID)}>{Conjunt.Nome}</option>
-        ) : '')}
-      </select>
-      <button onClick={()=>MoveItemToOtherConjunto(ConjuntID, OptionChangeConjunt, itemID)}>ConfirmarMudança</button>
-      </section>
-    </div>): ''
-   }
+        <h2 className="AdiconarConj" onClick={() => setDisableBox(true)}>
+          Adicionar a outro Conjunto
+        </h2>
+      </li>
 
-    </>)
-  
+      {disableBox ? (
+        <div className={`${disableBox ? "ShowBox" : "disableBox"}`}>
+          <section className="SectionChoseNewOptConjunt">
+            <IoMdClose
+              className="CloseConjunt"
+              onClick={() => setDisableBox(false)}
+            />
+            <h1>Selecione o conjuto para o prato</h1>
+            <select
+              onChange={(e) => setOptionChangeConjunt(Number(e.target.value))}
+            >
+              {Conjuntos.map((Conjunt) =>
+                Conjunt.ID != ConjuntID ? (
+                  <option value={Conjunt.ID}>{Conjunt.Nome}</option>
+                ) : null
+              )}
+            </select>
+            <button
+              className="BtnAddToCarDetalhes"
+              onClick={() =>
+                MoveItemToOtherConjunto(ConjuntID, OptionChangeConjunt, itemID)
+              }
+            >
+              ConfirmarMudança
+            </button>
+          </section>
+        </div>
+      ) : (
+        ""
+      )}
+    </>
+  );
 }
 
-export default  LiPrato
- 
+export default LiPrato;

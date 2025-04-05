@@ -298,6 +298,10 @@
     margin-bottom: 0.2em;
 }
 
+.AltConjuntItem{
+    margin-bottom: 0.5em;
+}
+
 .DescricaoResulmoCaixa{
     margin-bottom: 1.5em;
 }
@@ -448,7 +452,9 @@
     justify-content: space-between;
 
     width: 60%;
-    height: 70%;
+    height: 16%;
+
+    position: relative;
 }
 
 /*/\ -------- EditPage ------------- /\*/

@@ -16,8 +16,8 @@ export default function PedidosFeitos() {
     "Preparação",
     "Pronto",
     "Saiu",
-    "Finalizado"
-  ]
+    "Finalizado",
+  ];
   const [Pedidos, setPedidos] = useState<PedidoType[]>([
     {
       ID: "0001",
@@ -88,10 +88,10 @@ export default function PedidosFeitos() {
       TempoPedido: 60,
     },
   ]);
-  const [ShowEPedido, setShowEPedido] = useState<string>("Recebido")
+  const [ShowEPedido, setShowEPedido] = useState<string>("Recebido");
 
   function UpdateStado(index: number, PedidoID: string) {
-    setShowEPedido(ShowEstadoPedido[index])
+    setShowEPedido(ShowEstadoPedido[index]);
     setPedidos((prevEstado) =>
       prevEstado.map((pedido) =>
         pedido.ID == PedidoID
@@ -107,12 +107,18 @@ export default function PedidosFeitos() {
       <ul className="ULPedidos">
         {Pedidos.map((Pedido) => (
           <li className="CaixaPedido" key={Pedido.ID}>
-            <ShowPedido Pedido={Pedido}  />
+            <ShowPedido Pedido={Pedido} />
             <div className="EstadoPedidoDiv">
               <h2>Estado do pedido: </h2>
               <ul className="UlEstadoPedido">
                 {ShowEstadoPedido.map((Stage, index) => (
-                  <li onClick={() => UpdateStado(index, Pedido.ID)} key={Stage} className={`EstadoIten ${ShowEPedido == Stage ? 'SelectedEstado' : ''}`}>
+                  <li
+                    onClick={() => UpdateStado(index, Pedido.ID)}
+                    key={Stage}
+                    className={`EstadoIten ${
+                      ShowEPedido == Stage ? "SelectedEstado" : ""
+                    }`}
+                  >
                     {Stage}
                   </li>
                 ))}

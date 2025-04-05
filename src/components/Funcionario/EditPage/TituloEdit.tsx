@@ -63,7 +63,10 @@ export default function TituloEdit({ Conjunto }: { Conjunto: ConjuntoType }) {
               ))}
             </ul>
 
-            <button onClick={() => DeleteConjunto(Conjunto.ID)}>
+            <button
+              className="BtnAddToCarDetalhes"
+              onClick={() => DeleteConjunto(Conjunto.ID)}
+            >
               Deletar conjunto
             </button>
           </div>

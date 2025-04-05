@@ -425,6 +425,8 @@ body {
   height: 100vh;
 
   top: 0;
+
+  z-index: 10;
 }
 
 .AlignConfirmDiv {

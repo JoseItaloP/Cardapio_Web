@@ -1,8 +1,8 @@
-import { createContext, useEffect, useState } from 'react'
-import ItemPedido from '../types/ItemPedidoType'
-import PedidoType from '../types/PedidoType';
-import PratoType from '../types/PratoType';
-import ConjuntoType from '../types/ConjuntoType';
+import { createContext, useEffect, useState } from "react";
+import ItemPedido from "../types/ItemPedidoType";
+import PedidoType from "../types/PedidoType";
+import PratoType from "../types/PratoType";
+import ConjuntoType from "../types/ConjuntoType";
 
 type ContextType = {
   carrinho: ItemPedido[];
@@ -12,24 +12,33 @@ type ContextType = {
   AddingToCartItem: (ItemKey: number) => void;
   ChangeQuantity: (metodo: string, IdItem: number) => void;
   EditItemCardapio: (NewItem: PratoType, OldItem: PratoType) => void;
-  EditConjuntoNome: ( ID: number, newName: string )=>void;
-  DeleteConjunto: ( ID: number )=>void;
-  DeleteItemConjunto: ( ID: number, ItemID: number )=>void;
-  MoveItemToOtherConjunto: (IdAtual: number, NewId: number, ItemID: number )=>void;
-  PratoSemConjunto: PratoType[]
-}
+  EditConjuntoNome: (ID: number, newName: string) => void;
+  DeleteConjunto: (ID: number) => void;
+  DeleteItemConjunto: (ID: number, ItemID: number) => void;
+  MoveItemToOtherConjunto: (
+    IdAtual: number,
+    NewId: number,
+    ItemID: number
+  ) => void;
+  PratoSemConjunto: PratoType[];
+};
 
-export const CartContext = createContext({} as ContextType)
+export const CartContext = createContext({} as ContextType);
 
-export default function CartProvider({ children }: { children: React.ReactNode }) {
-
-  const [TempoPedido, setTempoPedido] = useState(0)
+export default function CartProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [TempoPedido, setTempoPedido] = useState(0);
   const [carrinho, setCarrinho] = useState<ItemPedido[]>([
     {
       Nome: "Prato1",
-      Descrição: "Descriçõa Prato: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum fugit amet, ex accusamus deleniti, blanditiis illo distinctio porro tenetur itaque voluptatum optio! Architecto sint similique perferendis, repudiandae corporis unde minima.",
+      Descrição:
+        "Descriçõa Prato: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum fugit amet, ex accusamus deleniti, blanditiis illo distinctio porro tenetur itaque voluptatum optio! Architecto sint similique perferendis, repudiandae corporis unde minima.",
       Valor: 12.0,
-      DescComp: "Descrição completa de teste 1: Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, minus labore aliquid distinctio aperiam itaque est rem dignissimos doloremque repellendus non accusamus fugiat tempore eveniet aspernatur earum accusantium nobis laudantium.",
+      DescComp:
+        "Descrição completa de teste 1: Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, minus labore aliquid distinctio aperiam itaque est rem dignissimos doloremque repellendus non accusamus fugiat tempore eveniet aspernatur earum accusantium nobis laudantium.",
       Ingredientes: ["Pão", "Queijo", "Salame"],
       ID: 0,
       Conjunto: "Teste",
@@ -55,14 +64,16 @@ export default function CartProvider({ children }: { children: React.ReactNode }
       Conjunto: "Teste",
       Quantidade: 2,
     },
-  ])
+  ]);
 
   const [ItemsCardapio, setItemsCardapio] = useState<PratoType[]>([
     {
       Nome: "Prato1",
-      Descrição: "Descriçõa Prato: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum fugit amet, ex accusamus deleniti, blanditiis illo distinctio porro tenetur itaque voluptatum optio! Architecto sint similique perferendis, repudiandae corporis unde minima.",
+      Descrição:
+        "Descriçõa Prato: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum fugit amet, ex accusamus deleniti, blanditiis illo distinctio porro tenetur itaque voluptatum optio! Architecto sint similique perferendis, repudiandae corporis unde minima.",
       Valor: 12.0,
-      DescComp: "Descrição completa de teste 1: Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, minus labore aliquid distinctio aperiam itaque est rem dignissimos doloremque repellendus non accusamus fugiat tempore eveniet aspernatur earum accusantium nobis laudantium.",
+      DescComp:
+        "Descrição completa de teste 1: Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, minus labore aliquid distinctio aperiam itaque est rem dignissimos doloremque repellendus non accusamus fugiat tempore eveniet aspernatur earum accusantium nobis laudantium.",
       Ingredientes: ["Pão", "Queijo", "Salame"],
       ID: 0,
       Conjunto: "Teste",
@@ -151,7 +162,8 @@ export default function CartProvider({ children }: { children: React.ReactNode }
       Nome: "Teste2",
       ItensArmazenados: [2, 3, 6, 8],
       ID: 1,
-    }]);
+    },
+  ]);
 
   const [PratoSemConjunto, setPratoSemConjunto] = useState<PratoType[]>([
     {
@@ -163,50 +175,49 @@ export default function CartProvider({ children }: { children: React.ReactNode }
       ID: 1,
       Conjunto: "",
     },
-  ])
+  ]);
 
   const EstadoPedido = [
     "Recebido pelo restaurante",
     "Pedido em preparação",
     "Pronto para coleta",
     "Saiu para entrega",
-    "Pedido finalizado"
-  ]
+    "Pedido finalizado",
+  ];
 
-  const ValorTotal = carrinho.reduce((acc, item) => acc + item.Valor, 0)
+  const ValorTotal = carrinho.reduce((acc, item) => acc + item.Valor, 0);
 
   const Pedido: PedidoType = {
-    ID: '0001',
+    ID: "0001",
     EstadoPedido: EstadoPedido[0],
     ValorTotal,
     ListaItens: carrinho,
-    TempoPedido
-  }
+    TempoPedido,
+  };
 
   useEffect(() => {
-    setTempoPedido(carrinho.length * 10)
+    setTempoPedido(carrinho.length * 10);
 
     const novoCarrinho = carrinho.filter((item) => item.Quantidade > 0);
 
     if (novoCarrinho.length !== carrinho.length) {
       setCarrinho(novoCarrinho);
     }
-
-  }, [carrinho])
+  }, [carrinho]);
 
   function AddingToCartItem(ItemKey: number) {
-    const ItemFind = ItemsCardapio.find((Item) => Item.ID == ItemKey)
+    const ItemFind = ItemsCardapio.find((Item) => Item.ID == ItemKey);
     if (ItemFind) {
       setCarrinho((prevCarrinho) => {
         const JaExiste = prevCarrinho.find((Item) => Item.ID === ItemFind.ID);
 
         if (JaExiste) {
-
           return prevCarrinho.map((item) =>
-            item.ID === ItemFind.ID ? { ...item, Quantidade: item.Quantidade + 1 } : item
+            item.ID === ItemFind.ID
+              ? { ...item, Quantidade: item.Quantidade + 1 }
+              : item
           );
         } else {
-
           return [...prevCarrinho, { ...ItemFind, Quantidade: 1 }];
         }
       });
@@ -218,12 +229,12 @@ export default function CartProvider({ children }: { children: React.ReactNode }
       prevItens.map((item) =>
         item.ID === IdItem
           ? {
-            ...item,
-            Quantidade:
-              metodo === "menos"
-                ? Math.max(item.Quantidade - 1, 0)
-                : item.Quantidade + 1,
-          }
+              ...item,
+              Quantidade:
+                metodo === "menos"
+                  ? Math.max(item.Quantidade - 1, 0)
+                  : item.Quantidade + 1,
+            }
           : item
       )
     );
@@ -231,98 +242,109 @@ export default function CartProvider({ children }: { children: React.ReactNode }
 
   function EditItemCardapio(NewItem: PratoType, OldItem: PratoType) {
     setItemsCardapio((prevItens) =>
-      prevItens.map((item) =>
-        item.ID == OldItem.ID ? NewItem : item
-      ))
-    console.log(ItemsCardapio)
+      prevItens.map((item) => (item.ID == OldItem.ID ? NewItem : item))
+    );
+    console.log(ItemsCardapio);
   }
 
   /* Conjunto Edit */
 
-  function EditConjuntoNome( ID: number, newName: string ) {
-    setConjuntos((prevStat)=>
-      prevStat.map((Conjunt)=>
-        Conjunt.ID == ID  ? {...Conjunt, Nome: newName} : Conjunt
+  function EditConjuntoNome(ID: number, newName: string) {
+    setConjuntos((prevStat) =>
+      prevStat.map((Conjunt) =>
+        Conjunt.ID == ID ? { ...Conjunt, Nome: newName } : Conjunt
       )
-    )
+    );
   }
 
-  function DeleteConjunto( ID: number ) {
-    setConjuntos((prevStat)=>
-      prevStat.filter((Conjunt)=>
-          Conjunt.ID != ID
-        )
-    )
-
+  function DeleteConjunto(ID: number) {
+    setConjuntos((prevStat) => prevStat.filter((Conjunt) => Conjunt.ID != ID));
   }
 
-  function DeleteItemConjunto( ID: number, ItemID: number ) {
-    
-
-    setConjuntos((prevStat)=>
-      prevStat.map((Conjunt)=>
-        Conjunt.ID == ID ? 
-      {...Conjunt, ItensAmazenados: Conjunt.ItensArmazenados.filter((item)=> item != ItemID)
-         } : Conjunt
-      ))
-
-      const pratoRemovido = ItemsCardapio.find((prato)=>prato.ID == ItemID)
-      if(pratoRemovido){
-        setPratoSemConjunto((prevStat)=> [...prevStat, pratoRemovido])
-      }
-
-      setItemsCardapio((prevStats)=>
-        prevStats.filter((prato)=> prato.ID !== ItemID)
+  function DeleteItemConjunto(ID: number, ItemID: number) {
+    setConjuntos((prevStat) =>
+      prevStat.map((Conjunt) =>
+        Conjunt.ID == ID
+          ? {
+              ...Conjunt,
+              ItensAmazenados: Conjunt.ItensArmazenados.filter(
+                (item) => item != ItemID
+              ),
+            }
+          : Conjunt
       )
+    );
 
+    const pratoRemovido = ItemsCardapio.find((prato) => prato.ID == ItemID);
+    if (pratoRemovido) {
+      setPratoSemConjunto((prevStat) => [...prevStat, pratoRemovido]);
+    }
+
+    setItemsCardapio((prevStats) =>
+      prevStats.filter((prato) => prato.ID !== ItemID)
+    );
   }
 
-  function MoveItemToOtherConjunto( IdAtual: number, NewId: number, ItemID: number ) {
-    
-    const ConjuntoEncontrado = Conjuntos.find((Conjunto) => Conjunto.ID === NewId);
+  function MoveItemToOtherConjunto(
+    IdAtual: number,
+    NewId: number,
+    ItemID: number
+  ) {
+    const ConjuntoEncontrado = Conjuntos.find(
+      (Conjunto) => Conjunto.ID === NewId
+    );
     const ConjuntoName = ConjuntoEncontrado ? ConjuntoEncontrado.Nome : "";
-    
-    setConjuntos((prevStat)=>
-      prevStat.map((Conjunt)=>
-        Conjunt.ID == IdAtual ? 
-      {...Conjunt, ItensAmazenados: Conjunt.ItensArmazenados.filter((item)=> item != ItemID)
-         } : Conjunt
-      ))
 
-      setConjuntos((prevStat)=>
-        prevStat.map((Conjunt)=>
-          Conjunt.ID == NewId ? 
-        {...Conjunt, ItensAmazenados: Conjunt.ItensArmazenados.push(ItemID)
-           } : Conjunt
-        ))
+    setConjuntos((prevStat) =>
+      prevStat.map((Conjunt) => {
+        if (Conjunt.ID == IdAtual) {
+          return {
+            ...Conjunt,
+            ItensArmazenados: Conjunt.ItensArmazenados.filter(
+              (item) => item != IdAtual
+            ),
+          };
+        } else if (Conjunt.ID === NewId) {
+          return {
+            ...Conjunt,
+            ItensArmazenados: [...Conjunt.ItensArmazenados, ItemID],
+          };
+        } else {
+          return Conjunt;
+        }
+      })
+    );
 
-        setItemsCardapio((prevStatus)=>
-          prevStatus.map((item)=>
-            item.ID == ItemID ? {
-              ...item, Conjunto: ConjuntoName
-            } : item
-           )
-        )
+    setItemsCardapio((prevStatus) =>
+      prevStatus.map((item) =>
+        item.ID == ItemID
+          ? {
+              ...item,
+              Conjunto: ConjuntoName,
+            }
+          : item
+      )
+    );
   }
 
   return (
-    <CartContext.Provider value={{ 
-      carrinho, 
-      Pedido, 
-      ItemsCardapio, 
-      Conjuntos, 
-      AddingToCartItem, 
-      ChangeQuantity, 
-      EditItemCardapio,
-      EditConjuntoNome,
-      DeleteConjunto,
-      DeleteItemConjunto,
-      MoveItemToOtherConjunto,
-      PratoSemConjunto
-       }}>
+    <CartContext.Provider
+      value={{
+        carrinho,
+        Pedido,
+        ItemsCardapio,
+        Conjuntos,
+        AddingToCartItem,
+        ChangeQuantity,
+        EditItemCardapio,
+        EditConjuntoNome,
+        DeleteConjunto,
+        DeleteItemConjunto,
+        MoveItemToOtherConjunto,
+        PratoSemConjunto,
+      }}
+    >
       {children}
     </CartContext.Provider>
-  )
+  );
 }
-
-

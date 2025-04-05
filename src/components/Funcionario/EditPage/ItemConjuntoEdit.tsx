@@ -7,7 +7,7 @@ export default function ItemConjuntoEdit({ Item }: { Item: PratoType }) {
   const [DetalhesOn, setDetalhesOn] = useState(false);
   const [EditedNew, setEditedNew] = useState<PratoType>(Item);
 
-  const { EditItemCardapio } = useContext(CartContext);
+  const { EditItemCardapio, Conjuntos } = useContext(CartContext);
 
   function HamdlerEditer() {
     EditItemCardapio(EditedNew, Item);
@@ -41,7 +41,15 @@ export default function ItemConjuntoEdit({ Item }: { Item: PratoType }) {
             <div className="TopLevelDetalhes">
               <h1>
                 Edição do prato{" "}
-                <input type="text" name="nome" id="nome" value={EditedNew.Nome} onChange={(e)=>setEditedNew({...Item, Nome: e.target.value})}/>
+                <input
+                  type="text"
+                  name="nome"
+                  id="nome"
+                  value={EditedNew.Nome}
+                  onChange={(e) =>
+                    setEditedNew({ ...Item, Nome: e.target.value })
+                  }
+                />
               </h1>
               <IoCloseSharp
                 onClick={() => setDetalhesOn(false)}
@@ -57,25 +65,37 @@ export default function ItemConjuntoEdit({ Item }: { Item: PratoType }) {
                   name="Valor"
                   id="Valor"
                   value={EditedNew.Valor.toFixed(2)}
-                  onChange={(e)=>setEditedNew({...Item, Valor: parseFloat(e.target.value)})}
-                  
+                  onChange={(e) =>
+                    setEditedNew({ ...Item, Valor: parseFloat(e.target.value) })
+                  }
                 />
               </p>
+
               <div className="DescricaoIngCaixa">
-              <p className="DescricaoResulmoCaixa">
-                  <textarea name="ResulDesc" 
-                  className='TextAreaDesc' id="ResulDesc" value={EditedNew.Descrição} onChange={(e)=>setEditedNew({...Item, Descrição: e.target.value})}/>
+                <p className="DescricaoResulmoCaixa">
+                  <textarea
+                    name="ResulDesc"
+                    className="TextAreaDesc"
+                    id="ResulDesc"
+                    value={EditedNew.Descrição}
+                    onChange={(e) =>
+                      setEditedNew({ ...Item, Descrição: e.target.value })
+                    }
+                  />
                 </p>
+
                 <p className="DescricaoDetalhesCaixa">
                   <textarea
                     name="DescComp"
                     id="DescComp"
                     value={EditedNew.DescComp}
                     className="TextAreaDesc"
-
-                    onChange={(e)=>setEditedNew({...Item, DescComp: e.target.value})}
+                    onChange={(e) =>
+                      setEditedNew({ ...Item, DescComp: e.target.value })
+                    }
                   />
                 </p>
+
                 <h1>Ingredientes: </h1>
                 <ul className="IngedientesList">
                   {EditedNew.Ingredientes.map((Ing, index) => (
@@ -83,17 +103,53 @@ export default function ItemConjuntoEdit({ Item }: { Item: PratoType }) {
                       className="ItemIngredientList"
                       key={`${index}:${Item.ID}`}
                     >
-                      <input type="text" name="Ingrediente" id="Ingrediente" value={Ing} 
-                      onChange={(e)=>{
-                        const newIngredient = [...EditedNew.Ingredientes]
-                        newIngredient[index] = e.target.value
-                        setEditedNew({...Item, Ingredientes: newIngredient})
-                      }}
+                      <input
+                        type="text"
+                        name="Ingrediente"
+                        id="Ingrediente"
+                        value={Ing}
+                        onChange={(e) => {
+                          const newIngredient = [...EditedNew.Ingredientes];
+                          newIngredient[index] = e.target.value;
+                          setEditedNew({
+                            ...Item,
+                            Ingredientes: newIngredient,
+                          });
+                        }}
                       />
                     </li>
                   ))}
                 </ul>
               </div>
+
+              {Item.Conjunto.length == 0 ? (
+                <div className="AltConjuntItem">
+                  <h1>Alterar Conjunto do Item</h1>
+                  <select
+                    onChange={(e) => {
+                      const selectedConjuntoID = Number(e.target.value);
+                      const selectedConjunto = Conjuntos.find(
+                        (Conjunt) => Conjunt.ID === selectedConjuntoID
+                      );
+                      if (selectedConjunto) {
+                        setEditedNew({
+                          ...EditedNew,
+                          Conjunto: selectedConjunto?.Nome,
+                        });
+                      }
+                    }}
+                  >
+                    <option value="">Selecione um Conjunto</option>
+                    {Conjuntos.map((Conjunt) => (
+                      <option key={Conjunt.ID} value={Conjunt.ID}>
+                        {Conjunt.Nome}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              ) : (
+                ""
+              )}
               <button
                 className="BtnAddToCarDetalhes"
                 onClick={() => HamdlerEditer()}
