@@ -1,5 +1,7 @@
 import ConjuntoType from "../../../types/ConjuntoType";
 import PratoType from "../../../types/PratoType";
+import CreatNewConjunto from "../../ConjuntoPrato/CreatNewConjunto";
+import CreatNewPrato from "../../ConjuntoPrato/CreatNewPrato";
 import ItemConjuntoEdit from "./ItemConjuntoEdit";
 import TituloEdit from "./TituloEdit";
 
@@ -14,6 +16,10 @@ export default function ShowConjuntoItem({
 }) {
   return (
     <div className="ConjuntoEdit">
+      <div className="boxConjuTop">
+        <CreatNewConjunto />
+        <CreatNewPrato />
+      </div>
       {conjuntos.map((conjunto) => (
         <div className="boxConjuto">
           <h1>

@@ -457,4 +457,121 @@
     position: relative;
 }
 
+.boxConjuTop{
+
+    background-color: var(--Stand-Color);
+    padding: 0.5em  0  0.5em 0;
+
+    margin-bottom: 1.5em;
+
+    text-align: center;
+
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.BttEditOpen{
+    padding: 0.5em;
+    background-color: var(--Second-Color);
+    color: var(--Stand-Color);
+    border: 1px solid var(--Stand-Color);
+    border-radius: 0.5em;
+
+    font-size: 1em;
+}
+
+.BttEditOpen:hover{
+    cursor: pointer;
+}
+
+.FormEditBox{
+    height: 100%;
+    width: 65%;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 0.5em;
+}
+.InputEditBox{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5em;
+    min-width: -webkit-fill-available;
+    
+    padding: 0.4em;
+    border: 1px solid black;
+}
+
+.LabelInput > h1{
+    margin-bottom: 0.5em;
+}
+
+.InputBTN{
+    width: 100%;
+    padding: 0.5em;
+    background-color: var(--Second-Color);
+    color: var(--Stand-Color);
+    border: 0;
+
+    margin-top: 0.5em;
+}
+
+.CloseConjuntEdit{
+
+    position: absolute;
+    background-color: brown;
+    border-radius: 50%;
+    color: white;
+    right: -11px;
+    top: -9px;
+    width: 6%;
+    height: 20%;
+
+}
+
+.CloseConjuntEdit:hover{
+  cursor: pointer;
+}
+
+.CloseConjuntEditPrato{
+    position: absolute;
+    background-color: brown;
+    border-radius: 50%;
+    color: white;
+    right: -11px;
+    top: -9px;
+    width: 6%;
+    height: 5%;
+}
+.CloseConjuntEditPrato:hover{
+    cursor: pointer;
+  }
+
+.IngDiv{
+    display: flex;
+}
+
+.IngInput{
+    border: 1px solid black;
+    padding: 0.3em 0.1em 0.3em 0.1em;
+
+    
+}
+
+.IngBtn{
+    background-color: var(--Second-Color);
+    color: var(--Stand-Color);
+    border: 1px solid var(--Stand-Color);
+
+    padding: 0.3em 0.1em 0.3em 0.1em;
+    font-size: 0.91em;
+    border-radius: 0em 0.5em 0.5em 0;
+    
+}
+
+.IngBtn:hover{
+    cursor: pointer;
+}
 /*/\ -------- EditPage ------------- /\*/

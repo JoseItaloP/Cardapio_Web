@@ -7,7 +7,8 @@ export default function ItemConjuntoEdit({ Item }: { Item: PratoType }) {
   const [DetalhesOn, setDetalhesOn] = useState(false);
   const [EditedNew, setEditedNew] = useState<PratoType>(Item);
 
-  const { EditItemCardapio, Conjuntos } = useContext(CartContext);
+  const { EditItemCardapio, Conjuntos, DeleteItemPrato } =
+    useContext(CartContext);
 
   function HamdlerEditer() {
     EditItemCardapio(EditedNew, Item);
@@ -150,6 +151,9 @@ export default function ItemConjuntoEdit({ Item }: { Item: PratoType }) {
               ) : (
                 ""
               )}
+              <button onClick={() => DeleteItemPrato(Item.ID)}>
+                Deletar Item
+              </button>
               <button
                 className="BtnAddToCarDetalhes"
                 onClick={() => HamdlerEditer()}

@@ -21,6 +21,9 @@ type ContextType = {
     ItemID: number
   ) => void;
   PratoSemConjunto: PratoType[];
+  DeleteItemPrato: (IdItem: number) => void;
+  CreateItemPrato: (NewPrato: PratoType) => void;
+  CreatConjunto: (NewConjuntName: string) => void;
 };
 
 export const CartContext = createContext({} as ContextType);
@@ -205,6 +208,7 @@ export default function CartProvider({
     }
   }, [carrinho]);
 
+  /*Edit Cardapio*/
   function AddingToCartItem(ItemKey: number) {
     const ItemFind = ItemsCardapio.find((Item) => Item.ID == ItemKey);
     if (ItemFind) {
@@ -245,6 +249,48 @@ export default function CartProvider({
       prevItens.map((item) => (item.ID == OldItem.ID ? NewItem : item))
     );
     console.log(ItemsCardapio);
+  }
+
+  function DeleteItemPrato(IdItem: number) {
+    const ItemPrato = ItemsCardapio.find((item) => item.ID == IdItem);
+    if (ItemPrato) {
+      setConjuntos((prevStat) =>
+        prevStat.map((Item) =>
+          Item.Nome == ItemPrato.Conjunto &&
+          Item.ItensArmazenados.find((ItensA) => ItensA == ItemPrato.ID)
+            ? {
+                ...Item,
+                ItensArmazenados: Item.ItensArmazenados.filter(
+                  (ItensAA) => ItensAA !== IdItem
+                ),
+              }
+            : Item
+        )
+      );
+    }
+    setItemsCardapio((prevStat) =>
+      prevStat.filter((item) => item.ID !== IdItem)
+    );
+  }
+
+  function CreateItemPrato(NewPrato: PratoType) {
+    const conjuntoFind = Conjuntos.find(
+      (Conjunt) => Conjunt.Nome == NewPrato.Conjunto
+    );
+    if (NewPrato.Conjunto && conjuntoFind) {
+      setConjuntos((prevStat) =>
+        prevStat.map((conjunt) =>
+          conjunt.ID == conjuntoFind.ID
+            ? {
+                ...conjunt,
+                ItensArmazenados: [...conjunt.ItensArmazenados, NewPrato.ID],
+              }
+            : conjunt
+        )
+      );
+    }
+    NewPrato.ID = ItemsCardapio.length;
+    setItemsCardapio((prevItems) => [...prevItems, NewPrato]);
   }
 
   /* Conjunto Edit */
@@ -327,6 +373,15 @@ export default function CartProvider({
     );
   }
 
+  function CreatConjunto(NewConjuntName: string) {
+    const NewConjunto: ConjuntoType = {
+      Nome: NewConjuntName,
+      ID: Conjuntos.length,
+      ItensArmazenados: [],
+    };
+    setConjuntos((prevItems) => [...prevItems, NewConjunto]);
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -342,6 +397,9 @@ export default function CartProvider({
         DeleteItemConjunto,
         MoveItemToOtherConjunto,
         PratoSemConjunto,
+        DeleteItemPrato,
+        CreateItemPrato,
+        CreatConjunto,
       }}
     >
       {children}
