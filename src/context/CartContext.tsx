@@ -23,6 +23,7 @@ type ContextType = {
   DeleteItemPrato: (IdItem: number) => void;
   CreateItemPrato: (NewPrato: PratoType) => void;
   CreatConjunto: (NewConjuntName: string) => void;
+  EstadoCarrinhoSalvo: ItemPedido[];
 };
 
 export const CartContext = createContext({} as ContextType);
@@ -32,41 +33,12 @@ export default function CartProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const EstadoCarrinhoSalvo = JSON.parse(
+    localStorage.getItem("Carrinho") || ""
+  );
+
   const [TempoPedido, setTempoPedido] = useState(0);
-  const [carrinho, setCarrinho] = useState<ItemPedido[]>([
-    {
-      Nome: "Prato1",
-      Descrição:
-        "Descriçõa Prato: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum fugit amet, ex accusamus deleniti, blanditiis illo distinctio porro tenetur itaque voluptatum optio! Architecto sint similique perferendis, repudiandae corporis unde minima.",
-      Valor: 12.0,
-      DescComp:
-        "Descrição completa de teste 1: Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, minus labore aliquid distinctio aperiam itaque est rem dignissimos doloremque repellendus non accusamus fugiat tempore eveniet aspernatur earum accusantium nobis laudantium.",
-      Ingredientes: ["Pão", "Queijo", "Salame"],
-      ID: 0,
-      Conjunto: "Teste",
-      Quantidade: 1,
-    },
-    {
-      Nome: "Prato2",
-      Descrição: "Descriçõa Prato",
-      Valor: 12.0,
-      DescComp: "Descrição detalhada do produto",
-      Ingredientes: ["Pão", "Queijo", "Salame"],
-      ID: 1,
-      Conjunto: "Teste",
-      Quantidade: 3,
-    },
-    {
-      Nome: "Prato3",
-      Descrição: "Descriçõa Prato",
-      Valor: 12.0,
-      DescComp: "Descrição detalhada do produto",
-      Ingredientes: ["Pão", "Queijo", "Salame"],
-      ID: 2,
-      Conjunto: "Teste",
-      Quantidade: 2,
-    },
-  ]);
+  const [carrinho, setCarrinho] = useState<ItemPedido[]>([]);
 
   const [ItemsCardapio, setItemsCardapio] = useState<PratoType[]>([
     {
@@ -211,13 +183,29 @@ export default function CartProvider({
     const novoCarrinho = carrinho.filter((item) => item.Quantidade > 0);
 
     if (novoCarrinho.length !== carrinho.length) {
+      console.log("setou novo");
       setCarrinho(novoCarrinho);
+    }
+
+    console.log("local stado: ", EstadoCarrinhoSalvo);
+
+    if (carrinho) {
+      localStorage.setItem("Carrinho", JSON.stringify(carrinho));
     }
   }, [carrinho]);
 
+  useEffect(() => {
+    if (EstadoCarrinhoSalvo) {
+      setCarrinho(EstadoCarrinhoSalvo);
+    }
+  }, []);
+
   /*Edit Cardapio*/
-  function AddingToCartItem(ItemKey: number) {
-    const ItemFind = ItemsCardapio.find((Item) => Item.ID == ItemKey);
+  function AddingToCartItem(ItemID: number) {
+    console.log("Id: ", ItemID);
+    const ItemFind = ItemsCardapio.find((Item) => Item.ID == ItemID);
+    console.log("Item: ", ItemFind);
+
     if (ItemFind) {
       setCarrinho((prevCarrinho) => {
         const JaExiste = prevCarrinho.find((Item) => Item.ID === ItemFind.ID);
@@ -449,6 +437,7 @@ export default function CartProvider({
         DeleteItemPrato,
         CreateItemPrato,
         CreatConjunto,
+        EstadoCarrinhoSalvo,
       }}
     >
       {children}
