@@ -15,6 +15,8 @@
 
     background-color: var(--Third-Color);
     border-radius: 1em;
+
+    width: 90%;
 }
 
 fieldset{
@@ -39,6 +41,7 @@ select{
 .FormConclu > h1, h2{
     text-align: center;
     margin: 0.5em 0 0.5em 0;
+    width: 80%;
 }
 
 .SelectEnd{

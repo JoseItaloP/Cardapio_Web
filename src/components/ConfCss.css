@@ -155,14 +155,16 @@
     color: brown;
 }
 
-.SemPedDiv > button{
+.SemPedDiv > a{
     border: 0;
     padding: 1em;
     border-radius: 0.4em;
     background-color: var(--Second-Color);
     color: var(--Stand-Color);
+
+    text-decoration: none;
 }
 
-.SemPedDiv > button:hover{
+.SemPedDiv > a:hover{
     cursor: pointer;
 }

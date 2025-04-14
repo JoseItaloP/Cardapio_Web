@@ -2,37 +2,16 @@ import { useContext, useEffect, useState } from "react";
 import Main from "../../components/Main";
 import "./AppPedidos.css";
 import ListaItens from "../../components/Pedido/ListaItens";
-import ItemPedido from "../../types/ItemPedidoType";
 import SemPedidos from "../../components/Pedido/SemPedidos";
 import { CartContext } from "../../context/CartContext";
 
 export default function Conclusão() {
-  const {carrinho} = useContext(CartContext)
+  const { carrinho, ChangeQuantity } = useContext(CartContext);
 
   const [Entrega, setEntrega] = useState<string>("");
   const [Metodo, setMetodo] = useState<boolean>(false);
   const [valor, setValor] = useState<number>(0);
   const [Pagamento, setPagamento] = useState<string>("dinheiro");
-
-  const [ItensCarrinho, setItensCarrinho] = useState<ItemPedido[]>(carrinho);
-
-
-
-  function ChangeQuantity(metodo: string, IdItem: number) {
-    setItensCarrinho((prevItens) =>
-      prevItens.map((item) =>
-        item.ID === IdItem
-          ? {
-              ...item,
-              Quantidade:
-                metodo === "menos"
-                  ? Math.max(item.Quantidade - 1, 0)
-                  : item.Quantidade + 1,
-            }
-          : item
-      )
-    );
-  }
 
   useEffect(() => {
     const total = carrinho.reduce(
@@ -41,7 +20,14 @@ export default function Conclusão() {
     );
     setValor(total);
   }, [carrinho]);
-
+  if (carrinho.length == 0)
+    return (
+      <Main>
+        <div className="NoPedidosCoclu">
+          <SemPedidos />
+        </div>
+      </Main>
+    );
   return (
     <Main>
       <form action="" className="FormConclu">
@@ -203,35 +189,33 @@ export default function Conclusão() {
             />
           </fieldset>
         </fieldset>
-        <ul className="UlConc">
-          {ItensCarrinho.some((item) => item.Quantidade > 0) ? (
-            ItensCarrinho.map((item) =>
-              item.Quantidade > 0 ? (
-                <div key={item.ID} className="ItemDivConf">
-                  <button
-                    className="MinusBtt"
-                    onClick={() => ChangeQuantity("menos", item.ID)}
-                  >
-                    -
-                  </button>
+        <div className="AlignConfirm">
+          <ul className="ListaItensPedido">
+            {carrinho.some((item) => item.Quantidade > 0)
+              ? carrinho.map((item) =>
+                  item.Quantidade > 0 ? (
+                    <div key={item.ID} className="ItemDivConf">
+                      <button
+                        className="MinusBtt"
+                        onClick={() => ChangeQuantity("menos", item.ID)}
+                      >
+                        -
+                      </button>
 
-                  <ListaItens Item={item} />
+                      <ListaItens Item={item} />
 
-                  <button
-                    className="PlussBtt"
-                    onClick={() => ChangeQuantity("mais", item.ID)}
-                  >
-                    +
-                  </button>
-                </div>
-              ) : null
-            )
-          ) : ( <div className="NoPedidosCoclu">
-
-            <SemPedidos />
-          </div>
-          )}
-        </ul>
+                      <button
+                        className="PlussBtt"
+                        onClick={() => ChangeQuantity("mais", item.ID)}
+                      >
+                        +
+                      </button>
+                    </div>
+                  ) : null
+                )
+              : ""}
+          </ul>
+        </div>
         <h2>Valor total de: R${valor.toFixed(2)}</h2>
         <button className="btnConclu">Confirmar pedido!</button>
       </form>
