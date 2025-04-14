@@ -5,6 +5,7 @@ import { CartContext } from "../../../context/CartContext";
 
 export default function ItemConjuntoEdit({ Item }: { Item: PratoType }) {
   const [DetalhesOn, setDetalhesOn] = useState(false);
+  const [DetalhesPoPuP, setDetalhesPoPuP] = useState(false);
   const [EditedNew, setEditedNew] = useState<PratoType>(Item);
 
   const { EditItemCardapio, Conjuntos, DeleteItemPrato } =
@@ -12,6 +13,13 @@ export default function ItemConjuntoEdit({ Item }: { Item: PratoType }) {
 
   function HamdlerEditer() {
     EditItemCardapio(EditedNew, Item);
+  }
+
+  function DeleteItenOrNot() {
+    if (DetalhesPoPuP) {
+      DeleteItemPrato(Item.ID);
+    }
+    setDetalhesPoPuP(false);
   }
 
   return (
@@ -48,7 +56,7 @@ export default function ItemConjuntoEdit({ Item }: { Item: PratoType }) {
                   id="nome"
                   value={EditedNew.Nome}
                   onChange={(e) =>
-                    setEditedNew({ ...Item, Nome: e.target.value })
+                    setEditedNew({ ...EditedNew, Nome: e.target.value })
                   }
                 />
               </h1>
@@ -67,11 +75,13 @@ export default function ItemConjuntoEdit({ Item }: { Item: PratoType }) {
                   id="Valor"
                   value={EditedNew.Valor.toFixed(2)}
                   onChange={(e) =>
-                    setEditedNew({ ...Item, Valor: parseFloat(e.target.value) })
+                    setEditedNew({
+                      ...EditedNew,
+                      Valor: parseFloat(e.target.value),
+                    })
                   }
                 />
               </p>
-
               <div className="DescricaoIngCaixa">
                 <p className="DescricaoResulmoCaixa">
                   <textarea
@@ -80,7 +90,7 @@ export default function ItemConjuntoEdit({ Item }: { Item: PratoType }) {
                     id="ResulDesc"
                     value={EditedNew.Descrição}
                     onChange={(e) =>
-                      setEditedNew({ ...Item, Descrição: e.target.value })
+                      setEditedNew({ ...EditedNew, Descrição: e.target.value })
                     }
                   />
                 </p>
@@ -92,7 +102,7 @@ export default function ItemConjuntoEdit({ Item }: { Item: PratoType }) {
                     value={EditedNew.DescComp}
                     className="TextAreaDesc"
                     onChange={(e) =>
-                      setEditedNew({ ...Item, DescComp: e.target.value })
+                      setEditedNew({ ...EditedNew, DescComp: e.target.value })
                     }
                   />
                 </p>
@@ -122,41 +132,60 @@ export default function ItemConjuntoEdit({ Item }: { Item: PratoType }) {
                   ))}
                 </ul>
               </div>
+              <div className="AltConjuntItem">
+                <h1>Alterar Conjunto do Item</h1>
+                <select
+                  onChange={(e) => {
+                    const selectedConjuntoID = Number(e.target.value);
+                    const selectedConjunto = Conjuntos.find(
+                      (Conjunt) => Conjunt.ID === selectedConjuntoID
+                    );
+                    if (selectedConjunto) {
+                      setEditedNew({
+                        ...EditedNew,
+                        Conjunto: selectedConjunto?.Nome,
+                      });
+                    }
+                  }}
+                >
+                  <option key="Empty">---Selecione um Conjunto---</option>
+                  {Conjuntos.map((Conjunt) => (
+                    <option key={Conjunt.ID} value={Conjunt.ID}>
+                      {Conjunt.Nome}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-              {Item.Conjunto.length == 0 ? (
-                <div className="AltConjuntItem">
-                  <h1>Alterar Conjunto do Item</h1>
-                  <select
-                    onChange={(e) => {
-                      const selectedConjuntoID = Number(e.target.value);
-                      const selectedConjunto = Conjuntos.find(
-                        (Conjunt) => Conjunt.ID === selectedConjuntoID
-                      );
-                      if (selectedConjunto) {
-                        setEditedNew({
-                          ...EditedNew,
-                          Conjunto: selectedConjunto?.Nome,
-                        });
-                      }
-                    }}
-                  >
-                    <option value="">Selecione um Conjunto</option>
-                    {Conjuntos.map((Conjunt) => (
-                      <option key={Conjunt.ID} value={Conjunt.ID}>
-                        {Conjunt.Nome}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+              {DetalhesPoPuP ? (
+                <section
+                  className={`${DetalhesOn ? "DetalhesPrato" : "disableBox"}`}
+                >
+                  <div className="DeletItemPoPup">
+                    <h1>Deseja realmente Deletar o item?</h1>
+                    <p className="DeletItemBtnHamdler">
+                      <button onClick={() => DeleteItenOrNot()}>Sim</button>
+                      <button onClick={() => setDetalhesPoPuP(false)}>
+                        Não
+                      </button>
+                    </p>
+                  </div>
+                </section>
               ) : (
                 ""
               )}
-              <button onClick={() => DeleteItemPrato(Item.ID)}>
+              <button
+                onClick={() => setDetalhesPoPuP(true)}
+                className="BTNeditPratoDelete"
+              >
                 Deletar Item
               </button>
               <button
                 className="BtnAddToCarDetalhes"
-                onClick={() => HamdlerEditer()}
+                onClick={() => {
+                  setDetalhesOn(false);
+                  HamdlerEditer();
+                }}
               >
                 Terminar edição
               </button>

@@ -12,11 +12,10 @@ export default function CreatNewPrato() {
     Conjunto: "",
     DescComp: "",
     Descrição: "",
-    Ingredientes: [""],
+    Ingredientes: [],
     ID: 0,
   });
-  const PratoIngEditing = [""];
-  let ControleING = 0;
+  const [IngAtual, setIngAtual] = useState("");
   const { CreateItemPrato } = useContext(CartContext);
 
   function UpdateStancePratoCreat(
@@ -27,6 +26,21 @@ export default function CreatNewPrato() {
       ...prevStat,
       [OBJT]: valueOpd,
     }));
+  }
+
+  function AddIng() {
+    if (IngAtual.trim() === "") return;
+    const newListIng = [...NewPratoToCreat.Ingredientes, IngAtual.trim()];
+
+    UpdateStancePratoCreat("Ingredientes", newListIng);
+    setIngAtual("");
+  }
+
+  function RemoveItem(ingredinte: string) {
+    const newListIng = NewPratoToCreat.Ingredientes.filter(
+      (item) => item != ingredinte
+    );
+    UpdateStancePratoCreat("Ingredientes", newListIng);
   }
 
   return (
@@ -46,7 +60,6 @@ export default function CreatNewPrato() {
               className="FormEditBox"
               onSubmit={(e) => {
                 e.preventDefault();
-                CreateItemPrato(NewPratoToCreat);
               }}
             >
               <InputNewPrato
@@ -57,7 +70,7 @@ export default function CreatNewPrato() {
               />
               <InputNewPrato
                 OnChange={(e) =>
-                  UpdateStancePratoCreat("Valor", e.target.value)
+                  UpdateStancePratoCreat("Valor", Number(e.target.value))
                 }
                 labelString="Valor do prato"
                 valueOF={NewPratoToCreat.Valor}
@@ -81,15 +94,13 @@ export default function CreatNewPrato() {
               />
               <InputNewPrato
                 labelString="Ingredientes do prato"
-                valueOF={NewPratoToCreat.Ingredientes[PratoIngEditing.length]}
+                valueOF={IngAtual}
                 type="ingrediente"
                 OnChange={(e) => {
-                  PratoIngEditing[ControleING] = e.target.value;
+                  setIngAtual(e.target.value);
                 }}
-                BTT={() => {
-                  UpdateStancePratoCreat("Ingredientes", PratoIngEditing);
-                  ControleING += 1;
-                }}
+                BTT={AddIng}
+                BtnRemove={RemoveItem}
                 Ingredientes={NewPratoToCreat.Ingredientes}
               />
               <InputNewPrato
@@ -100,11 +111,16 @@ export default function CreatNewPrato() {
                 type="conjunto"
               />
 
-              <input
-                type="button"
-                value="Cria novo Prato"
+              <button
                 className="InputBTN"
-              />
+                onClick={() => {
+                  CreateItemPrato(NewPratoToCreat);
+                  setDisableBox(false);
+                }}
+              >
+                {" "}
+                Cria novo Prato{" "}
+              </button>
             </form>
           </section>
         </div>

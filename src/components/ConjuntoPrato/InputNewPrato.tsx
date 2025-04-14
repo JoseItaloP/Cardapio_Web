@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
+import { IoMdClose } from "react-icons/io";
 
 export default function InputNewPrato({
   labelString,
@@ -7,6 +8,7 @@ export default function InputNewPrato({
   OnChange,
   type,
   BTT,
+  BtnRemove,
   Ingredientes,
   OnChangeSelect,
 }: {
@@ -15,6 +17,7 @@ export default function InputNewPrato({
   OnChange?: React.ChangeEventHandler<HTMLInputElement>;
   type: string;
   BTT?: React.MouseEventHandler<HTMLButtonElement>;
+  BtnRemove?: (ingrediente: string) => void;
   Ingredientes?: string[];
   OnChangeSelect?: React.ChangeEventHandler<HTMLSelectElement>;
 }) {
@@ -22,7 +25,7 @@ export default function InputNewPrato({
   switch (type) {
     case "padrao":
       return (
-        <label htmlFor="" className="LabelInput">
+        <label className="LabelInput" key={labelString}>
           <h1>{labelString}</h1>
 
           <input
@@ -38,29 +41,31 @@ export default function InputNewPrato({
 
     case "ingrediente":
       return (
-        <label className="LabelInput">
+        <label className="LabelInput" key={labelString}>
           <h1>{labelString}</h1>
-          <div className="IngDiv">
-            <input
-              type="text"
-              name=""
-              id=""
-              onChange={OnChange}
-              className="IngInput"
-            />
+          <section className="IngDiv">
+            <input type="text" onChange={OnChange} className="IngInput" />
             <button onClick={BTT} className="IngBtn">
               Adicionar Ingrediente
             </button>
-          </div>
-          {Ingredientes?.map((ingrediente) => (
-            <p>{ingrediente}</p>
-          ))}
+          </section>
+          <section className="IngBoxList">
+            {Ingredientes?.map((ingrediente) => (
+              <div className="IngItemOnList" key={ingrediente}>
+                <p>{ingrediente}</p>
+                <IoMdClose
+                  onClick={() => BtnRemove?.(ingrediente)}
+                  className="RemoveItemList"
+                />
+              </div>
+            ))}
+          </section>
         </label>
       );
 
     case "conjunto":
       return (
-        <label htmlFor="">
+        <label key={labelString}>
           <h1>{labelString}</h1>
           <select onChange={OnChangeSelect}>
             <option value="">Sem Conjunto</option>

@@ -8,44 +8,53 @@ import TituloEdit from "./TituloEdit";
 export default function ShowConjuntoItem({
   conjuntos,
   ItemsCardapio,
-  PratoSemConjunto,
 }: {
   conjuntos: ConjuntoType[];
   ItemsCardapio: PratoType[];
-  PratoSemConjunto: PratoType[];
 }) {
+  const itensSemConjunto = ItemsCardapio.filter(
+    (item) => !item.Conjunto || item.Conjunto === ""
+  );
+
   return (
     <div className="ConjuntoEdit">
       <div className="boxConjuTop">
         <CreatNewConjunto />
         <CreatNewPrato />
       </div>
-      {conjuntos.map((conjunto) => (
+
+      {conjuntos.map((conjunto) => {
+        const itensDoConjunto: PratoType[] = conjunto.ItensArmazenados.map(
+          (itemID) =>
+            ItemsCardapio.find(
+              (item) => item.ID === itemID && item.Conjunto === conjunto.Nome
+            )
+        ).filter((item): item is PratoType => item !== undefined);
+
+        return (
+          <div key={conjunto.Nome} className="boxConjuto">
+            <h1>
+              <TituloEdit Conjunto={conjunto} />
+            </h1>
+            <ul className="UlItems">
+              {itensDoConjunto.map((item) => (
+                <ItemConjuntoEdit key={item.ID} Item={item} />
+              ))}
+            </ul>
+          </div>
+        );
+      })}
+
+      {itensSemConjunto.length > 0 && (
         <div className="boxConjuto">
-          <h1>
-            <TituloEdit Conjunto={conjunto} />
-          </h1>
+          <h1>Pratos sem conjuntos</h1>
           <ul className="UlItems">
-            {ItemsCardapio.map((item) =>
-              conjunto.ItensArmazenados.map((ItemID) =>
-                ItemID == item.ID && conjunto.Nome == item.Conjunto ? (
-                  <ItemConjuntoEdit Item={item} />
-                ) : (
-                  ""
-                )
-              )
-            )}
+            {itensSemConjunto.map((item) => (
+              <ItemConjuntoEdit key={item.ID} Item={item} />
+            ))}
           </ul>
         </div>
-      ))}
-      <div className="boxConjuto">
-        <h1>Pratos sem conjuntos</h1>
-        <ul>
-          {PratoSemConjunto.map((Prato) => (
-            <ItemConjuntoEdit Item={Prato} />
-          ))}
-        </ul>
-      </div>
+      )}
     </div>
   );
 }

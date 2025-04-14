@@ -59,7 +59,7 @@ export default function TituloEdit({ Conjunto }: { Conjunto: ConjuntoType }) {
             </h1>
             <ul className="UlPrato">
               {Conjunto.ItensArmazenados.map((item) => (
-                <LiPrato itemID={item} ConjuntID={Conjunto.ID} />
+                <LiPrato key={item} itemID={item} ConjuntID={Conjunto.ID} />
               ))}
             </ul>
 

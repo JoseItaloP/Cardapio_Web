@@ -23,7 +23,7 @@ export default function CreatNewConjunto() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                CreatConjunto(NewConjuntName);
+                setDisableBox(false);
               }}
               className="FormEditBox"
             >
@@ -38,11 +38,13 @@ export default function CreatNewConjunto() {
                   className="InputEditBox"
                 />
               </label>
-              <input
-                type="button"
-                value="Cria novo Conjunto"
+              <button
                 className="InputBTN"
-              />
+                onClick={() => CreatConjunto(NewConjuntName)}
+              >
+                {" "}
+                Cria novo Conjunto
+              </button>
             </form>
           </section>
         </div>

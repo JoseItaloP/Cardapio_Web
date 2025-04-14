@@ -20,7 +20,6 @@ type ContextType = {
     NewId: number,
     ItemID: number
   ) => void;
-  PratoSemConjunto: PratoType[];
   DeleteItemPrato: (IdItem: number) => void;
   CreateItemPrato: (NewPrato: PratoType) => void;
   CreatConjunto: (NewConjuntName: string) => void;
@@ -153,6 +152,26 @@ export default function CartProvider({
       ID: 8,
       Conjunto: "Teste2",
     },
+    {
+      Nome: "Prato14",
+      Descrição: "Descriçõa Prato",
+      Valor: 24.0,
+      DescComp: "Descrição detalhada do produto",
+      Ingredientes: ["Pão", "Queijo", "Salame"],
+      ID: 10,
+      Conjunto: "",
+    },
+    {
+      Nome: "Prato 11",
+      Descrição:
+        "Descriçõa Prato: Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum fugit amet, ex accusamus deleniti, blanditiis illo distinctio porro tenetur itaque voluptatum optio! Architecto sint similique perferendis, repudiandae corporis unde minima.",
+      Valor: 11.0,
+      DescComp:
+        "Descrição completa de teste 1: Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, minus labore aliquid distinctio aperiam itaque est rem dignissimos doloremque repellendus non accusamus fugiat tempore eveniet aspernatur earum accusantium nobis laudantium.",
+      Ingredientes: ["Pão", "Queijo", "Salame"],
+      ID: 11,
+      Conjunto: "",
+    },
   ]);
 
   const [Conjuntos, setConjuntos] = useState<ConjuntoType[]>([
@@ -165,18 +184,6 @@ export default function CartProvider({
       Nome: "Teste2",
       ItensArmazenados: [2, 3, 6, 8],
       ID: 1,
-    },
-  ]);
-
-  const [PratoSemConjunto, setPratoSemConjunto] = useState<PratoType[]>([
-    {
-      Nome: "Prato14",
-      Descrição: "Descriçõa Prato",
-      Valor: 24.0,
-      DescComp: "Descrição detalhada do produto",
-      Ingredientes: ["Pão", "Queijo", "Salame"],
-      ID: 1,
-      Conjunto: "",
     },
   ]);
 
@@ -246,9 +253,30 @@ export default function CartProvider({
 
   function EditItemCardapio(NewItem: PratoType, OldItem: PratoType) {
     setItemsCardapio((prevItens) =>
-      prevItens.map((item) => (item.ID == OldItem.ID ? NewItem : item))
+      prevItens.map((item) => (item.ID === OldItem.ID ? NewItem : item))
     );
-    console.log(ItemsCardapio);
+
+    setConjuntos((prevConjuntos) =>
+      prevConjuntos.map((conjunto) => {
+        const isOldConj = conjunto.Nome === OldItem.Conjunto;
+        const isNewConj = conjunto.Nome === NewItem.Conjunto;
+
+        let ItensArmazenados = conjunto.ItensArmazenados;
+
+        if (isOldConj && OldItem.Conjunto !== NewItem.Conjunto) {
+          ItensArmazenados = ItensArmazenados.filter((id) => id !== OldItem.ID);
+        }
+
+        if (isNewConj && !ItensArmazenados.includes(NewItem.ID)) {
+          ItensArmazenados = [...ItensArmazenados, NewItem.ID];
+        }
+
+        return {
+          ...conjunto,
+          ItensArmazenados,
+        };
+      })
+    );
   }
 
   function DeleteItemPrato(IdItem: number) {
@@ -278,6 +306,7 @@ export default function CartProvider({
       (Conjunt) => Conjunt.Nome == NewPrato.Conjunto
     );
     if (NewPrato.Conjunto && conjuntoFind) {
+      NewPrato.ID = ItemsCardapio.length;
       setConjuntos((prevStat) =>
         prevStat.map((conjunt) =>
           conjunt.ID == conjuntoFind.ID
@@ -289,8 +318,9 @@ export default function CartProvider({
         )
       );
     }
-    NewPrato.ID = ItemsCardapio.length;
+
     setItemsCardapio((prevItems) => [...prevItems, NewPrato]);
+    console.log("Itens: ", ItemsCardapio);
   }
 
   /* Conjunto Edit */
@@ -304,7 +334,22 @@ export default function CartProvider({
   }
 
   function DeleteConjunto(ID: number) {
-    setConjuntos((prevStat) => prevStat.filter((Conjunt) => Conjunt.ID != ID));
+    const FindConjunto = Conjuntos.find((conjunt) => conjunt.ID == ID);
+    if (FindConjunto) {
+      setItemsCardapio((prevStat) =>
+        prevStat.map((item) =>
+          item.Conjunto == FindConjunto.Nome
+            ? {
+                ...item,
+                Conjunto: "",
+              }
+            : item
+        )
+      );
+      setConjuntos((prevStat) =>
+        prevStat.filter((Conjunt) => Conjunt.ID != ID)
+      );
+    }
   }
 
   function DeleteItemConjunto(ID: number, ItemID: number) {
@@ -313,21 +358,25 @@ export default function CartProvider({
         Conjunt.ID == ID
           ? {
               ...Conjunt,
-              ItensAmazenados: Conjunt.ItensArmazenados.filter(
-                (item) => item != ItemID
+              ItensArmazenados: Conjunt.ItensArmazenados.filter(
+                (item) => item !== ItemID
               ),
             }
           : Conjunt
       )
     );
 
-    const pratoRemovido = ItemsCardapio.find((prato) => prato.ID == ItemID);
-    if (pratoRemovido) {
-      setPratoSemConjunto((prevStat) => [...prevStat, pratoRemovido]);
-    }
+    console.log("conjuntos: ", Conjuntos);
 
-    setItemsCardapio((prevStats) =>
-      prevStats.filter((prato) => prato.ID !== ItemID)
+    setItemsCardapio((prevStatus) =>
+      prevStatus.map((item) =>
+        item.ID == ItemID
+          ? {
+              ...item,
+              Conjunto: "",
+            }
+          : item
+      )
     );
   }
 
@@ -379,6 +428,7 @@ export default function CartProvider({
       ID: Conjuntos.length,
       ItensArmazenados: [],
     };
+    console.log(NewConjunto);
     setConjuntos((prevItems) => [...prevItems, NewConjunto]);
   }
 
@@ -396,7 +446,6 @@ export default function CartProvider({
         DeleteConjunto,
         DeleteItemConjunto,
         MoveItemToOtherConjunto,
-        PratoSemConjunto,
         DeleteItemPrato,
         CreateItemPrato,
         CreatConjunto,

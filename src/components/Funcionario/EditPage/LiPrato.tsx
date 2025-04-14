@@ -10,13 +10,12 @@ function LiPrato({ itemID, ConjuntID }: { itemID: number; ConjuntID: number }) {
     DeleteItemConjunto,
     MoveItemToOtherConjunto,
   } = useContext(CartContext);
-  const [ItemOnConjunto, setItemOnConjunto] = useState<PratoType | null>();
+
+  const [ItemOnConjunto] = useState<PratoType | undefined>(
+    ItemsCardapio.find((item) => item.ID == itemID)
+  );
   const [OptionChangeConjunt, setOptionChangeConjunt] = useState<number>(-1);
   const [disableBox, setDisableBox] = useState(false);
-
-  useEffect(() => {
-    setItemOnConjunto(ItemsCardapio.find((item) => item.ID == itemID));
-  }, [ItemsCardapio, itemID]);
 
   useEffect(() => {
     const firstDifferent = Conjuntos.find((conj) => conj.ID !== ConjuntID);
