@@ -4,10 +4,11 @@ import "./AppPedidos.css";
 import ListaItens from "../../components/Pedido/ListaItens";
 import SemPedidos from "../../components/Pedido/SemPedidos";
 import { CartContext } from "../../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Conclusão() {
-  const { carrinho, ChangeQuantity } = useContext(CartContext);
-
+  const { carrinho, ChangeQuantity, criarPedido } = useContext(CartContext);
+  const navigate = useNavigate();
   const [Entrega, setEntrega] = useState<string>("");
   const [Metodo, setMetodo] = useState<boolean>(false);
   const [valor, setValor] = useState<number>(0);
@@ -217,7 +218,16 @@ export default function Conclusão() {
           </ul>
         </div>
         <h2>Valor total de: R${valor.toFixed(2)}</h2>
-        <button className="btnConclu">Confirmar pedido!</button>
+        <button
+          className="btnConclu"
+          onClick={() => {
+            const pedido = Math.floor(100000 + Math.random() * 900000);
+            criarPedido(pedido);
+            navigate(`/pedido/estadoPedido/${pedido}`);
+          }}
+        >
+          Confirmar pedido!
+        </button>
       </form>
     </Main>
   );

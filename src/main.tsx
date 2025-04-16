@@ -1,64 +1,79 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Endereço from './pages/Pedidos/Endereço.tsx'
-import Conclusão from './pages/Pedidos/Conclusão.tsx'
-import Pagamento from './pages/Pedidos/Pagamento.tsx'
-import EstadoPedido from './pages/Pedidos/EstadoPedido.tsx'
-import Login from './pages/Funcionarios/Login.tsx'
-import MainFunc from './pages/Funcionarios/FuncPage.tsx'
-import CartProvider from './context/CartContext.tsx'
-import EditFuncPage from './pages/Funcionarios/EditFuncPage.tsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App.tsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Endereço from "./pages/Pedidos/Endereço.tsx";
+import Conclusão from "./pages/Pedidos/Conclusão.tsx";
+import Pagamento from "./pages/Pedidos/Pagamento.tsx";
+import EstadoPedido from "./pages/Pedidos/EstadoPedido.tsx";
+import Login from "./pages/Funcionarios/Login.tsx";
+import MainFunc from "./pages/Funcionarios/FuncPage.tsx";
+import CartProvider from "./context/CartContext.tsx";
+import EditFuncPage from "./pages/Funcionarios/EditFuncPage.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App/>
+    element: <App />,
   },
   {
     path: "pedido",
-    children:[
-      
+    children: [
       {
         path: "endereco",
-        element: <Endereço/>
+        element: <Endereço />,
       },
       {
         path: "conclusao",
-        element: <CartProvider><Conclusão/></CartProvider>
+        element: (
+          <CartProvider>
+            <Conclusão />
+          </CartProvider>
+        ),
       },
       {
         path: "pagamento",
-        element: <Pagamento/>
+        element: <Pagamento />,
       },
       {
-        path: "estadoPedido",
-        element: <CartProvider><EstadoPedido/></CartProvider>
-      }
-    ]
+        path: "estadoPedido/:pedido",
+        element: (
+          <CartProvider>
+            <EstadoPedido />
+          </CartProvider>
+        ),
+      },
+    ],
   },
   {
     path: "funcionario",
-    children:[
+    children: [
       {
         path: "login",
-        element: <Login/>
+        element: <Login />,
       },
       {
         path: "main",
-        element: <MainFunc/>
+        element: (
+          <CartProvider>
+            <MainFunc />
+          </CartProvider>
+        ),
       },
       {
         path: "edit",
-        element: <CartProvider><EditFuncPage /></CartProvider>
-      }
-    ]
-  }
-])
+        element: (
+          <CartProvider>
+            <EditFuncPage />
+          </CartProvider>
+        ),
+      },
+    ],
+  },
+]);
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>,
-)
+  </StrictMode>
+);

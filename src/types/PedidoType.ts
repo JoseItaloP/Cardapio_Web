@@ -2,7 +2,7 @@ import ItemPedido from "./ItemPedidoType";
 
 
 type PedidoType = {
-    ID: string;
+    ID: number;
     EstadoPedido: string;
     ValorTotal: number;
     ListaItens: ItemPedido[];

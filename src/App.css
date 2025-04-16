@@ -309,6 +309,12 @@ body {
 
   padding: 1em;
 }
+
+.HeaderClass>h1>a{
+  text-decoration: none;
+  font-size: 0.8em;
+  color: var(--Stand-Color);
+}
 .CartOBJ {
   display: flex;
 }

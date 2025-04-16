@@ -6,7 +6,7 @@ import ConjuntoType from "../types/ConjuntoType";
 
 type ContextType = {
   carrinho: ItemPedido[];
-  Pedido: PedidoType;
+  Pedidos: PedidoType[];
   ItemsCardapio: PratoType[];
   Conjuntos: ConjuntoType[];
   AddingToCartItem: (ItemKey: number) => void;
@@ -23,7 +23,9 @@ type ContextType = {
   DeleteItemPrato: (IdItem: number) => void;
   CreateItemPrato: (NewPrato: PratoType) => void;
   CreatConjunto: (NewConjuntName: string) => void;
-  EstadoCarrinhoSalvo: ItemPedido[];
+  criarPedido: (id: number) => void;
+
+  UpdateStatePedido: (Estado: string, ID: number) => void;
 };
 
 export const CartContext = createContext({} as ContextType);
@@ -33,10 +35,6 @@ export default function CartProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const EstadoCarrinhoSalvo = JSON.parse(
-    localStorage.getItem("Carrinho") || ""
-  );
-
   const [TempoPedido, setTempoPedido] = useState(0);
   const [carrinho, setCarrinho] = useState<ItemPedido[]>([]);
 
@@ -159,23 +157,33 @@ export default function CartProvider({
     },
   ]);
 
-  const EstadoPedido = [
-    "Recebido pelo restaurante",
-    "Pedido em preparação",
-    "Pronto para coleta",
-    "Saiu para entrega",
-    "Pedido finalizado",
-  ];
-
   const ValorTotal = carrinho.reduce((acc, item) => acc + item.Valor, 0);
 
-  const Pedido: PedidoType = {
-    ID: "0001",
-    EstadoPedido: EstadoPedido[0],
-    ValorTotal,
-    ListaItens: carrinho,
-    TempoPedido,
-  };
+  const [Pedidos, setPedidos] = useState<PedidoType[]>([]);
+
+  let EstadoCarrinhoSalvo: ItemPedido[];
+  if (localStorage.getItem("Carrinho")) {
+    EstadoCarrinhoSalvo = JSON.parse(localStorage.getItem("Carrinho") || "");
+  } else {
+    localStorage.setItem("Carrinho", JSON.stringify(carrinho));
+  }
+
+  let PedidosFunc: PedidoType[];
+  if (localStorage.getItem("PedidosFunc")) {
+    PedidosFunc = JSON.parse(localStorage.getItem("PedidosFunc") || "");
+  } else {
+    localStorage.setItem("PedidosFunc", JSON.stringify(Pedidos));
+  }
+
+  useEffect(() => {
+    if (EstadoCarrinhoSalvo) {
+      setCarrinho(EstadoCarrinhoSalvo);
+    }
+
+    if (PedidosFunc) {
+      setPedidos(PedidosFunc);
+    }
+  }, []);
 
   useEffect(() => {
     setTempoPedido(carrinho.length * 10);
@@ -187,18 +195,26 @@ export default function CartProvider({
       setCarrinho(novoCarrinho);
     }
 
-    console.log("local stado: ", EstadoCarrinhoSalvo);
-
     if (carrinho) {
       localStorage.setItem("Carrinho", JSON.stringify(carrinho));
     }
   }, [carrinho]);
 
   useEffect(() => {
-    if (EstadoCarrinhoSalvo) {
-      setCarrinho(EstadoCarrinhoSalvo);
-    }
-  }, []);
+    localStorage.setItem("PedidosFunc", JSON.stringify(Pedidos));
+  }, [Pedidos]);
+
+  function criarPedido(id: number) {
+    const NovoPedido: PedidoType = {
+      ID: id,
+      EstadoPedido: "Recebido",
+      ListaItens: carrinho,
+      TempoPedido,
+      ValorTotal,
+    };
+    setPedidos((prevPedidos) => [...prevPedidos, NovoPedido]);
+    setCarrinho([]);
+  }
 
   /*Edit Cardapio*/
   function AddingToCartItem(ItemID: number) {
@@ -420,11 +436,25 @@ export default function CartProvider({
     setConjuntos((prevItems) => [...prevItems, NewConjunto]);
   }
 
+  function UpdateStatePedido(Estado: string, ID: number) {
+    setPedidos((prevStado) =>
+      prevStado.map((pedido) =>
+        pedido.ID == ID
+          ? {
+              ...pedido,
+              EstadoPedido: Estado,
+            }
+          : pedido
+      )
+    );
+    localStorage.setItem("PedidosFunc", JSON.stringify(Pedidos));
+  }
+
   return (
     <CartContext.Provider
       value={{
         carrinho,
-        Pedido,
+        Pedidos,
         ItemsCardapio,
         Conjuntos,
         AddingToCartItem,
@@ -437,7 +467,9 @@ export default function CartProvider({
         DeleteItemPrato,
         CreateItemPrato,
         CreatConjunto,
-        EstadoCarrinhoSalvo,
+        criarPedido,
+
+        UpdateStatePedido,
       }}
     >
       {children}

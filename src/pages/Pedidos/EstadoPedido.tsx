@@ -1,55 +1,106 @@
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../context/CartContext";
 import Main from "../../components/Main";
-
-{
-  /*
-  "Recebido",
-        "Pedido",
-        "Pronto",
-        "Saiu"
-  */
-}
+import { useParams } from "react-router-dom";
+import PedidoType from "../../types/PedidoType";
 
 export default function EstadoPedido() {
+  const { pedido } = useParams();
   const { Pedidos } = useContext(CartContext);
-  const [EstadoP, setEstadoP] = useState<string>(Pedidos.EstadoPedido[0]);
+  const [findPedido, setFindPedido] = useState<PedidoType>();
 
   useEffect(() => {
-    const ChangeEstadoPedido = () => {
-      return setEstadoP(Pedidos.EstadoPedido[Pedidos.PosiçãoEstadoPedido]);
-    };
-    ChangeEstadoPedido();
+    const Encontrado = Pedidos.find((item) => item.ID == Number(pedido));
+    if (Encontrado) {
+      setFindPedido(Encontrado);
+    }
+    console.log("pedido: ", Encontrado);
   }, [Pedidos]);
-  return (
-    <Main>
-      <div className="DivEstadoPedido">
-        <h1 className="H1EstadoPedido"> Estado de entrega do pedido {Pedidos.ID}</h1>
-        <ul className="ListaEstadoPedido">
-          <li
-            className={`${EstadoP == "Recebido" ? "Ativo" : "PassAwayEstado"}`}
-          >
-            Recebido pelo restaurante
-          </li>
-          <li
-            className={`${EstadoP == "Pedido" ? "Ativo" : "DisablEstado"} ${
-              EstadoP == "Pronto" || EstadoP == "Saiu" ? "PassAwayEstado" : ""
-            }`}
-          >
-            Pedido em preparação, tempo estimado: {Pedidos.TempoPedido} minutos
-          </li>
-          <li
-            className={`${
-              EstadoP == "Saiu" ? "PassAwayEstado" : ""
-            } ${EstadoP == "Pronto" ? "Ativo" : "DisablEstado"} `}
-          >
-            Pedido pronto!
-          </li>
-          <li className={`${EstadoP == "Saiu" ? "Ativo" : "DisablEstado"}`}>
-            Pedido saiu para entrega.
-          </li>
-        </ul>
-      </div>
-    </Main>
-  );
+
+  if (findPedido) {
+    return (
+      <Main>
+        <div className="DivEstadoPedido">
+          <h1 className="H1EstadoPedido">
+            {" "}
+            Estado de entrega do pedido {findPedido.ID}
+          </h1>
+          <ul className="ListaEstadoPedido">
+            <li
+              className={`${
+                findPedido.EstadoPedido == "Recebido"
+                  ? "Ativo"
+                  : "PassAwayEstado"
+              }`}
+            >
+              Recebido pelo restaurante
+            </li>
+            <li
+              className={`
+                ${
+                  findPedido.EstadoPedido == "Preparação"
+                    ? "Ativo"
+                    : "DisablEstado"
+                } ${
+                findPedido.EstadoPedido == "Pronto" ||
+                findPedido.EstadoPedido == "Saiu" ||
+                findPedido.EstadoPedido == "Finalizado"
+                  ? "PassAwayEstado"
+                  : ""
+              }`}
+            >
+              Pedido em preparação
+            </li>
+            <li
+              className={`
+              ${
+                findPedido.EstadoPedido == "Saiu" ||
+                findPedido.EstadoPedido == "Finalizado"
+                  ? "PassAwayEstado"
+                  : ""
+              } 
+                ${
+                  findPedido.EstadoPedido == "Pronto" ? "Ativo" : "DisablEstado"
+                } `}
+            >
+              Pedido pronto!
+            </li>
+            <li
+              className={`
+                ${
+                  findPedido.EstadoPedido == "Finalizado"
+                    ? "PassAwayEstado"
+                    : ""
+                } 
+                ${
+                  findPedido.EstadoPedido == "Saiu" ? "Ativo" : "DisablEstado"
+                }`}
+            >
+              Pedido saiu para entrega.
+            </li>
+
+            <li
+              className={`${
+                findPedido.EstadoPedido == "Finalizado"
+                  ? "Ativo"
+                  : "DisablEstado"
+              }`}
+            >
+              Finalizado.
+            </li>
+
+            <li className="PassAwayEstado">
+              Tempo medio estimado: {findPedido.TempoPedido} minutos
+            </li>
+          </ul>
+        </div>
+      </Main>
+    );
+  } else {
+    return (
+      <Main>
+        <h1>Pedido nao encontrado</h1>
+      </Main>
+    );
+  }
 }
